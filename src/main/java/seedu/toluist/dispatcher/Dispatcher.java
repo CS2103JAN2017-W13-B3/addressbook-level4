@@ -7,4 +7,5 @@ package seedu.toluist.dispatcher;
  */
 public abstract class Dispatcher {
     public abstract void dispatch(String command);
+    public abstract void dispatchQuietly(String command);
 }

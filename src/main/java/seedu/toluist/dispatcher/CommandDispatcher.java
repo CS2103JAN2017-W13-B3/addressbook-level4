@@ -26,6 +26,7 @@ import seedu.toluist.controller.FindController;
 import seedu.toluist.controller.HistoryController;
 import seedu.toluist.controller.LoadController;
 import seedu.toluist.controller.MarkController;
+import seedu.toluist.controller.NavigateHistoryController;
 import seedu.toluist.controller.RedoController;
 import seedu.toluist.controller.StoreController;
 import seedu.toluist.controller.SwitchController;
@@ -37,6 +38,7 @@ import seedu.toluist.controller.UntagController;
 import seedu.toluist.controller.UpdateTaskController;
 import seedu.toluist.controller.ViewAliasController;
 import seedu.toluist.model.AliasTable;
+import seedu.toluist.model.CommandHistoryList;
 
 public class CommandDispatcher extends Dispatcher {
     private static final Logger logger = LogsCenter.getLogger(CommandDispatcher.class);
@@ -46,17 +48,16 @@ public class CommandDispatcher extends Dispatcher {
     /**
      * ArrayList to store previous commands entered since starting the application
      */
-    private ArrayList<String> commandHistory;
-    private int historyPointer = 0;
+    private CommandHistoryList commandHistory;
 
     public CommandDispatcher() {
         super();
         aliasConfig.setReservedKeywords(getControllerKeywords());
-        commandHistory = new ArrayList<>();
+        commandHistory = new CommandHistoryList();
     }
 
     public void dispatch(String command) {
-        recordCommand(command);
+        commandHistory.recordCommand(command);
         String deAliasedCommand = aliasConfig.dealias(command);
         logger.info("De-aliased command to be dispatched: " + deAliasedCommand + " original command " + command);
 
@@ -73,9 +74,22 @@ public class CommandDispatcher extends Dispatcher {
         eventsCenter.post(new NewResultAvailableEvent(feedbackToUser.getFeedbackToUser()));
     }
 
-    private void recordCommand(String command) {
-        commandHistory.add(command);
-        historyPointer = commandHistory.size();
+    /**
+     * Similar to the dispatch method, however is called by commands from the application
+     * As such, does not need alias validation, and does not record command being called
+     */
+    public void dispatchQuietly(String command) {
+        Controller controller = getBestFitController(command);
+        logger.info("Controller class to be executed: " + controller.getClass());
+
+        CommandResult feedbackToUser;
+        if (controller instanceof NavigateHistoryController) {
+            ((NavigateHistoryController) controller).setCommandHistory(commandHistory);
+        }
+
+        feedbackToUser = controller.execute(command);
+
+        eventsCenter.post(new NewResultAvailableEvent(feedbackToUser.getFeedbackToUser()));
     }
 
     private Controller getBestFitController(String command) {
@@ -103,6 +117,7 @@ public class CommandDispatcher extends Dispatcher {
                 AliasController.class,
                 UnaliasController.class,
                 ViewAliasController.class,
+                NavigateHistoryController.class,
                 UntagController.class,
                 FindController.class,
                 TagController.class,

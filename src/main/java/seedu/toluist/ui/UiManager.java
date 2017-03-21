@@ -53,7 +53,7 @@ public class UiManager extends ComponentManager implements Ui {
                     .getObservableTasks()
                     .addListener((ListChangeListener.Change<? extends Task> c) -> render());
             String listCommand = "list";
-            dispatcher.dispatch(listCommand);
+            dispatcher.dispatchQuietly(listCommand);
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

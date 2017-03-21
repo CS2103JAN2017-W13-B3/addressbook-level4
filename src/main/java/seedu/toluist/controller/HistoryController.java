@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.toluist.commons.core.LogsCenter;
 import seedu.toluist.dispatcher.CommandResult;
+import seedu.toluist.model.CommandHistoryList;
 
 /**
  * ListController is responsible for rendering the initial UI
@@ -16,18 +17,18 @@ public class HistoryController extends Controller {
     private static final String COMMAND_WORD = "history";
     private static final String COMMAND_REGEX = "^history\\s*";
 
-    private ArrayList<String> commandHistory;
+    private CommandHistoryList commandHistory;
 
-    public void setCommandHistory(ArrayList<String> commandHistory) {
+    public void setCommandHistory(CommandHistoryList commandHistory) {
         this.commandHistory = commandHistory;
     }
 
     public CommandResult execute(String command) {
         logger.info(getClass().getName() + " will handle command");
 
-        String result = String.join("\n", commandHistory);
+        String result = String.join("\n", commandHistory.getAsArrayList());
 
-        return new CommandResult(String.format(RESULT_MESSAGE, result, commandHistory.size()));
+        return new CommandResult(String.format(RESULT_MESSAGE, result, commandHistory.getAsArrayList().size()));
     }
 
     public HashMap<String, String> tokenize(String command) {
