@@ -93,6 +93,7 @@ public class MainWindow extends UiPart<Region> {
 
     private void configureKeyCombinations() {
         configureSwitchTabKeyCombinations();
+        configureHistoryNavigationKeyPresses();
     }
 
     /**
@@ -124,6 +125,35 @@ public class MainWindow extends UiPart<Region> {
         });
     }
 
+    /**
+     * Sets the key combination on root.
+     * @param keyCode the KeyCode value of the accelerator
+     * @param handler the event handler
+     */
+    private void setKeyCode(KeyCode keyCode, EventHandler<ActionEvent> handler) {
+        /*
+         * TODO: the code below can be removed once the bug reported here
+         * https://bugs.openjdk.java.net/browse/JDK-8131666
+         * is fixed in later version of SDK.
+         *
+         * According to the bug report, TextInputControl (TextField, TextArea) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultView contains a TextArea, thus some accelerators (e.g F1) will
+         * not work when the focus is in them because the key event is consumed by
+         * the TextInputControl(s).
+         *
+         * For now, we add following event filter to capture such key events and open
+         * help window purposely so to support accelerators even when focus is
+         * in CommandBox or ResultView.
+         */
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCode.equals(event.getCode())) {
+                handler.handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }
+
     void hide() {
         primaryStage.hide();
     }
@@ -133,15 +163,24 @@ public class MainWindow extends UiPart<Region> {
         Arrays.stream(tabNames).forEach(tabName -> {
             KeyCombination keyCombination = new KeyCodeCombination(getKeyCode(tabName), KeyCombination.CONTROL_DOWN);
             String switchCommand = "switch " + tabName;
-            EventHandler<ActionEvent> handler = event -> dispatcher.dispatch(switchCommand);
+            EventHandler<ActionEvent> handler = event -> dispatcher.dispatchQuietly(switchCommand);
             setKeyCombination(keyCombination, handler);
         });
     }
 
+    private void configureHistoryNavigationKeyPresses() {
+        String[] keyNames = new String[] { "up", "down"};
+        Arrays.stream(keyNames).forEach(keyName -> {
+            KeyCode keycode = getKeyCode(keyName);
+            String navigateCommand = "navigatehistory " + keyName;
+            EventHandler<ActionEvent> handler = event -> dispatcher.dispatchQuietly(navigateCommand);
+            setKeyCode(keycode, handler);
+        });    }
+
     /**
      * Get matching key code for a string
      * @param s string
-     * @returna key code
+     * @return a key code
      */
     private KeyCode getKeyCode(String s) {
         switch (s) {
@@ -150,6 +189,8 @@ public class MainWindow extends UiPart<Region> {
         case "n": return KeyCode.N;
         case "c": return KeyCode.C;
         case "a": return KeyCode.A;
+        case "up": return KeyCode.UP;
+        case "down": return KeyCode.DOWN;
         default: return KeyCode.ESCAPE;
         }
     }
