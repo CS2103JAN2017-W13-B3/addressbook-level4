@@ -50,7 +50,10 @@ public class AddTaskController extends Controller {
         String tagsToken = tokens.get(TaskTokenizer.TASK_TAGS_KEYWORD);
         Set<Tag> tags = TagParser.parseTags(tagsToken);
 
-        commandResult = add(todoList, description, eventStartDateTime, eventEndDateTime, taskDeadline, tags);
+        String taskPriority = tokens.get(TaskTokenizer.TASK_PRIORITY_KEYWORD);
+
+        commandResult = add(todoList, description, eventStartDateTime, eventEndDateTime,
+                taskDeadline, taskPriority, tags);
 
         if (todoList.save()) {
             uiStore.setTasks(todoList.getTasks());
@@ -65,7 +68,7 @@ public class AddTaskController extends Controller {
 
     private CommandResult add(TodoList todoList, String description,
             LocalDateTime eventStartDateTime, LocalDateTime eventEndDateTime,
-            LocalDateTime taskDeadline, Set<Tag> tags) {
+            LocalDateTime taskDeadline, String taskPriority, Set<Tag> tags) {
         if (!isValidTaskType(eventStartDateTime, eventEndDateTime, taskDeadline)) {
             return new CommandResult(RESULT_MESSAGE_ERROR_DATE_INPUT);
         }
@@ -77,6 +80,9 @@ public class AddTaskController extends Controller {
             task = new Task(description, taskDeadline);
         } else {
             task = new Task(description);
+        }
+        if (taskPriority != null) {
+            task.setTaskPriority(taskPriority);
         }
         task.replaceTags(tags);
         todoList.add(task);

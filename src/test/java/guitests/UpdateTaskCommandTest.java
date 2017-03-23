@@ -12,6 +12,7 @@ import org.junit.Test;
 import seedu.toluist.commons.util.DateTimeUtil;
 import seedu.toluist.model.Tag;
 import seedu.toluist.model.Task;
+import seedu.toluist.model.Task.TaskPriority;
 import seedu.toluist.testutil.TypicalTestTodoLists;
 
 /**
@@ -36,15 +37,16 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         // update tags
         command = "update 2 tags/tag2";
         commandBox.runCommand(command);
-        Task task2 = new Task(newDescription, null, null);
+        Task task2 = new Task(newDescription);
         task2.replaceTags(new ArrayList<>(Arrays.asList(tag2)));
         assertFalse(isTaskShown(task));
         assertTrue(isTaskShown(task2));
 
         // update tags with new tags
-        command = "update 2 tags/tag1 tag3";
+        command = "update 2 tags/tag1 tag3 priority/high";
         commandBox.runCommand(command);
-        Task task3 = new Task(newDescription, null, null);
+        Task task3 = new Task(newDescription);
+        task3.setTaskPriority(TaskPriority.HIGH);
         task3.replaceTags(new ArrayList<>(Arrays.asList(tag1, tag3)));
         assertFalse(isTaskShown(task));
         assertFalse(isTaskShown(task2));
@@ -73,9 +75,10 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
 
         // update task description
         String newTaskDescription = "complete v0.2";
-        command = "update " + eventIndex + " " + newTaskDescription;
+        command = "update " + eventIndex + " " + newTaskDescription + " priority/high";
         commandBox.runCommand(command);
         Task task3 = new Task(newTaskDescription, newEndDate);
+        task3.setTaskPriority(TaskPriority.HIGH);
         assertFalse(isTaskShown(task));
         assertFalse(isTaskShown(task2));
         assertTrue(isTaskShown(task3));
@@ -83,7 +86,8 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         // update all parameters for task with deadline and tags
         String newerTaskDescription = "get v0.2 ready";
         LocalDateTime newerEndDate = DateTimeUtil.parseDateString("15 Mar 2017, 12pm");
-        command = "update " + eventIndex + " " + newerTaskDescription + " by/" + newerEndDate + " tags/tag1 tag3";
+        command = "update " + eventIndex + " " + newerTaskDescription + " by/" + newerEndDate +
+                " priority/low tags/tag1 tag3";
         commandBox.runCommand(command);
         Task task4 = new Task(newerTaskDescription, null, newerEndDate);
         task4.replaceTags(new ArrayList<>(Arrays.asList(tag1, tag3)));
@@ -109,9 +113,10 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         // update event start date and end date
         LocalDateTime newStartDate = DateTimeUtil.parseDateString("22 Mar 2017, 12pm");
         LocalDateTime newEndDate = DateTimeUtil.parseDateString("22 Mar 2017, 1pm");
-        command = "update " + eventIndex + " from/" + newStartDate + " to/" + newEndDate;
+        command = "update " + eventIndex + " from/" + newStartDate + " to/" + newEndDate + " priority/high";
         commandBox.runCommand(command);
         Task task2 = new Task(taskDescription, newStartDate, newEndDate);
+        task2.setTaskPriority(TaskPriority.HIGH);
         assertFalse(isTaskShown(task));
         assertTrue(isTaskShown(task2));
 
@@ -120,6 +125,7 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         command = "update " + eventIndex + " " + newTaskDescription;
         commandBox.runCommand(command);
         Task task3 = new Task(newTaskDescription, newStartDate, newEndDate);
+        task3.setTaskPriority(TaskPriority.HIGH);
         assertFalse(isTaskShown(task));
         assertFalse(isTaskShown(task2));
         assertTrue(isTaskShown(task3));
@@ -129,7 +135,7 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         LocalDateTime newerStartDate = DateTimeUtil.parseDateString("15 Mar 2017, 12pm");
         LocalDateTime newerEndDate = DateTimeUtil.parseDateString("15 Mar 2017, 1pm");
         command = "update " + eventIndex + " " + newerTaskDescription +
-                  " to/" + newerEndDate + " tags/tag1 "  + " from/" + newerStartDate;
+                  " priority/low to/" + newerEndDate + " tags/tag1 "  + " from/" + newerStartDate;
         commandBox.runCommand(command);
         Task task4 = new Task(newerTaskDescription, newerStartDate, newerEndDate);
         task4.replaceTags(new ArrayList<>(Arrays.asList(tag1)));
@@ -305,6 +311,25 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         task.setDescription(newDescription);
         commandBox.runCommand(updateCommand);
         assertFalse(isTaskShown(new TypicalTestTodoLists().getTypicalTasks()[1]));
+        assertTrue(isTaskShown(task));
+    }
+
+    @Test
+    public void updateTaskWithInvalidPriorityLevel_shouldNotBeUpdated() {
+        int eventIndex = 1;
+
+        String taskDescription = "attend CS2103T tutorial";
+        String command = "add " + taskDescription;
+        commandBox.runCommand(command);
+        Task task = new Task(taskDescription);
+        assertTrue(isTaskShown(task));
+
+        command = "update " + eventIndex + " priority/high low";
+        commandBox.runCommand(command);
+        assertTrue(isTaskShown(task));
+
+        command = "update " + eventIndex + " priority/";
+        commandBox.runCommand(command);
         assertTrue(isTaskShown(task));
     }
 }

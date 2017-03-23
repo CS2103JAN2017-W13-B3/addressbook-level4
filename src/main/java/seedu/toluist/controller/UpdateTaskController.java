@@ -57,10 +57,13 @@ public class UpdateTaskController extends Controller {
 
         boolean isFloating = tokens.containsKey(TaskTokenizer.TASK_FLOATING_KEYWORD);
 
+        String taskPriority = tokens.get(TaskTokenizer.TASK_PRIORITY_KEYWORD);
+
         String tagsToken = tokens.get(TaskTokenizer.TASK_TAGS_KEYWORD);
         Set<Tag> tags = TagParser.parseTags(tagsToken);
 
-        commandResult = update(task, description, eventStartDateTime, eventEndDateTime, taskDeadline, isFloating, tags);
+        commandResult = update(task, description, eventStartDateTime, eventEndDateTime,
+                taskDeadline, isFloating, taskPriority, tags);
 
         if (todoList.save()) {
             uiStore.setTasks(todoList.getTasks());
@@ -74,8 +77,8 @@ public class UpdateTaskController extends Controller {
     }
 
     private CommandResult update(Task task, String description,
-            LocalDateTime eventStartDateTime, LocalDateTime eventEndDateTime,
-            LocalDateTime taskDeadline, boolean isFloating, Set<Tag> tags) {
+            LocalDateTime eventStartDateTime, LocalDateTime eventEndDateTime, LocalDateTime taskDeadline,
+            boolean isFloating, String taskPriority, Set<Tag> tags) {
         if (!isValidTaskType(eventStartDateTime, eventEndDateTime, taskDeadline, isFloating)) {
             return new CommandResult(RESULT_MESSAGE_ERROR_DATE_INPUT);
         }
@@ -97,6 +100,9 @@ public class UpdateTaskController extends Controller {
 
         if (StringUtil.isPresent(description)) {
             task.setDescription(description);
+        }
+        if (taskPriority != null) {
+            task.setTaskPriority(taskPriority);
         }
         if (!tags.isEmpty()) {
             task.replaceTags(tags);

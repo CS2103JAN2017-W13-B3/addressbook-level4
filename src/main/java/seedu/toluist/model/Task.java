@@ -11,6 +11,8 @@ import seedu.toluist.commons.util.DateTimeUtil;
  * Represents a Task
  */
 public class Task implements Comparable<Task> {
+    private static final String HIGH_PRIORITY_STRING = "high";
+    private static final String LOW_PRIORITY_STRING = "low";
 
     // List of tags is unique
     private TreeSet<Tag> allTags = new TreeSet<>();
@@ -132,6 +134,10 @@ public class Task implements Comparable<Task> {
         return !isCompleted() && endDateTime != null && DateTimeUtil.isBeforeOrEqual(endDateTime, LocalDateTime.now());
     }
 
+    public boolean isHighPriority() {
+        return priority == TaskPriority.HIGH;
+    }
+
     public boolean isFloatingTask() {
         return startDateTime == null && endDateTime == null;
     }
@@ -235,6 +241,16 @@ public class Task implements Comparable<Task> {
 
     public void setTaskPriority(TaskPriority priority) {
         this.priority = priority;
+    }
+
+    public void setTaskPriority(String priorityString) {
+        if (priorityString.equalsIgnoreCase(HIGH_PRIORITY_STRING)) {
+            setTaskPriority(TaskPriority.HIGH);
+        } else if (priorityString.equalsIgnoreCase(LOW_PRIORITY_STRING)) {
+            setTaskPriority(TaskPriority.LOW);
+        } else {
+            throw new IllegalArgumentException("Task priority must be either 'low' or 'high'.");
+        }
     }
 
     public LocalDateTime getCompletionDateTime() {
