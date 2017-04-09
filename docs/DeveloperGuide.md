@@ -38,9 +38,9 @@ Here are some tasks you should to complete before diving into the project.
     > Having any Java 8 version is not enough. This app will not work with earlier versions of Java 8.
 
 2. Download and install **Eclipse** Integrated Development Environment on your computer.
-3. Install **e(fx)clipse** plugin for Eclipse 
+3. Install **e(fx)clipse** plugin for Eclipse. 
 (Proceed from step 2 
-onwards in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+onwards on [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. Visit Eclipse Marketplace, search for and install **Buildship Gradle 
 Integration** plugin.
 5. Also from Eclipse Marketplace, install **Checkstyle Plug-in** plugin.
@@ -48,30 +48,30 @@ Integration** plugin.
 
 ### 2.2. Importing the project into Eclipse
 
-1. Fork this repo, and clone the fork to your computer
+1. Fork this repo, and clone the fork to your computer.
 2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
-3. Click `File` > `Import`
-4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-5. Click `Browse`, then locate the project's directory
-6. Click `Finish`
+   in the prerequisites above).
+3. Click `File` > `Import`.
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
+5. Click `Browse`, then locate the project's directory.
+6. Click `Finish`.
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
+  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
+      (This is because Gradle downloads library files from servers during the project set up process).
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ### 2.3. Configuring Checkstyle
 
-1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
-2. Choose `External Configuration File` under `Type`
-3. Enter an arbitrary configuration name e.g. toluist
-4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
+1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`.
+2. Choose `External Configuration File` under `Type`.
+3. Enter an arbitrary configuration name. E.g. toluist
+4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`.
 5. Click OK once, go to the `Main` tab, use the newly imported check configuration.
-6. Tick and select `files from packages`, click `Change...`, and select the `resources` package
-7. Click OK twice. Rebuild project if prompted
+6. Tick and select `files from packages`, click `Change...`, and select the `resources` package.
+7. Click OK twice. Rebuild project if prompted.
 
-> You should click on the `files from packages` text after ticking in order to enable the `Change...` button
+> You should click on the `files from packages` text after ticking in order to enable the `Change...` button.
 
 ### 2.4. Troubleshooting project setup
 
@@ -97,33 +97,31 @@ Integration** plugin.
 The **_Architecture Diagram_** given above explains the high-level design of ToLuist.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for:
 
-* Initializing the components in the correct sequence, and connects them up with each other during app launch.
-* Shutting down the components and invokes cleanup method where necessary when exiting the app.
+* Initializing the components in the correct sequence, and connecting them with each other during app launch.
+* Shutting down the components and invoking cleanup methods where necessary when exiting the app.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
 * `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of five components:
 
-* [**`UI`**](#ui-component) renders the GUI of the app.
-* [**`Dispatcher`**](#dispatcher-component) invokes a suitable command executor.
-* [**`Controller`**](#logic-component) executes the command.
-* [**`Model`**](#model-component) holds the data of the application in the memory.
-* [**`Storage`**](#storage-component) reads data from, and writes data to, the hard disk.
+* [**`UI`**](#32-ui-component) renders the GUI of the app.
+* [**`Dispatcher`**](#33-dispatcher-component) invokes a suitable command executor.
+* [**`Controller`**](#34-logic-component) executes the command.
+* [**`Model`**](#35-model-component) holds the data of the application in the memory.
+* [**`Storage`**](#36-storage-component) reads data from, and writes data to, the hard disk.
 
-Our architecture follows the *Model-View-Controller* (MVC) Pattern. UI displays data and interacts with the user. Commands are passed through 
-the Dispatcher and routed to a suitable Controller. Controller receives requests from the Dispatcher and acts as the 
-bridge between the UI and the Model. Model & Storage store and maintain the data. Inspirations for this design
- came from MVC architectures used by web MVC frameworks such as [Ruby on Rails](http://paulhan221.tumblr
- .com/post/114731592051/rails-http-requests-for-mvc) and [Laravel](http://laravelbook.com/laravel-architecture/).
+Our architecture follows the *Model-View-Controller* (MVC) Pattern. UI displays data and interacts with the user. Commands are passed through the Dispatcher and routed to a suitable Controller. The Controller receives requests from the Dispatcher and acts as the 
+bridge between the UI and the Model. The Model & Storage store and maintain the data. 
+Inspirations for this design came from MVC architectures used by web MVC frameworks such as [Ruby on Rails](http://paulhan221.tumblr.com/post/114731592051/rails-http-requests-for-mvc) and [Laravel](http://laravelbook.com/laravel-architecture/).
 
-The sections below give more details of each component.
+The sections below explain each component in more details.
 
 ### 3.2. UI component
 
