@@ -620,4 +620,4 @@ Unalias | `unalias ALIAS` | `unalias hs`
 Undo | `undo [NUMBER]` | `undo 5` <br> `undo`
 Untag | `untag INDEX TAG...` | `untag 1 school` <br> `untag 3 work home`
 Update | `update INDEX [DESCRIPTION] [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/floating] [/repeat PERIOD(daily/weekly/monthly/yearly)] [/repeatuntil REPEATDATE] [/stoprepeating] [/priority PRIORITY(high/low)] [/tags TAGS]` | `update 1 /by 11/12/2011`
-Viewalias | `viewalias`
+View aliases | `viewalias`
