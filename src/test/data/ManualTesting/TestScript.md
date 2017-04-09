@@ -60,7 +60,7 @@ Input:
 1. Eyeball for this task named `go to supermarket for discount` and remember the index number, `<INDEX>`.
 2. `update <INDEX> /by end of april /priority high /tags anyhow tag`
 
-Result: Event is updated to a deadline, with high priorities. The old tags are also replaced with new tags.
+Result: Event is updated to a deadline, with high priority. The old tags are also replaced with new tags.
 
 ## Delete
 
