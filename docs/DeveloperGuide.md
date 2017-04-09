@@ -303,7 +303,7 @@ The state diagram below represents the relationships between different types of 
 The `Storage` component:
 - acts like a database in the application.
 - provides read/write funcionalities to the `Model`, encapsuling all the inner implementation details.
-- can save the task data in json format and read it back.
+- saves the task data in json format and reads it back.
 - holds the history of all data changes
 
 #### Undoable History
