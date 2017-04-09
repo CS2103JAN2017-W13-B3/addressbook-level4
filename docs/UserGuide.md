@@ -108,7 +108,7 @@ Type out these command in the command box and press <kbd>Enter</kbd> to execute 
 
 1. Since you are new to the app, type in `help` to get some information on the commands ToLuist supports.
 
-   <img src="images/Tryout1.png" width="400"/><br>
+   <img src="images/Tryout1.PNG" width="400"/><br>
     **Figure 2.4a**: Looking at the help display.
     
 2. Try out some example commands:
@@ -116,13 +116,13 @@ Type out these command in the command box and press <kbd>Enter</kbd> to execute 
      adds a task named `Try Out Todo List` to the todo list.
      
      
-   <img src="images/Tryout2.png" width="400"/><br>
+   <img src="images/Tryout2.PNG" width="400"/><br>
     **Figure 2.4b**: Adding a new task.
     
    * **`delete`**` 1` : deletes the 1st task shown in the current list.
    
    
-   <img src="images/Tryout3.png" width="400"/><br>
+   <img src="images/Tryout3.PNG" width="400"/><br>
     **Figure 2.4c**: Deleting the first task.
     
    * **`exit`** : exits the app.<br>
