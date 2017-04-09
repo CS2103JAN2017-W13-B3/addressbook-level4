@@ -102,7 +102,7 @@ Given below is a quick overview of each component.
 * Initializing the components in the correct sequence, and connecting them with each other during app launch.
 * Shutting down the components and invoking cleanup methods where necessary when exiting the app.
 
-[**`Commons`**](#38-common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#38-common-classes) represents a collection of classes used by many other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
