@@ -106,7 +106,8 @@ Given below is a quick overview of each component.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
+  is used by components to communicate with other components using events (i.e. a form of **Event Driven** 
+  design).
 * `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of five components:
@@ -123,16 +124,27 @@ Inspirations for this design came from MVC architectures used by web MVC framewo
 
 The sections below explain each component in more details.
 
-### 3.2. UI component
+### 3.2. Event-Driven Approach
+
+ToLuist applies **Event-Driven Approach** where applicable to reduce coupling between different 
+components.
+
+For example, consider what happens after a `ExitAppRequest` is posted. `EventsCenter` will notify all 
+subscribers about this event. `MainApp`, which is a subscriber, will respond and stop the app.
+
+<img src="images/Event-Driven.png" width="600"><br>
+**Figure 3.2**: `MainApp` is informed when `ExitAppRequest` is posted
+
+### 3.3. UI component
 
 <img src="images/UiClassDiagram.png" width="600"><br>
-**Figure 3.2**: Structure of the UI Component
+**Figure 3.3**: Structure of the UI Component
 
 **API** : [`Ui.java`](../src/main/java/seedu/toluist/ui/Ui.java)
 
 **JavaFX** is used for the UI. `MainWindow` holds all the views that make up the different parts of the UI. These views inherit from the abstract `UiView` class, while `MainWindow` itself inherits from the abstract `UiPart` class.
 
-#### 3.2.1. UiView
+#### 3.3.1. UiView
 
 **API** : [`UiView.java`](../src/main/java/seedu/toluist/ui/view/UiView.java)
 
@@ -158,31 +170,33 @@ Each `UiView` has a mini lifecycle. `viewDidLoad` is run after `render` is calle
 - Set UI component values (e.g. using `setText` on an FXML `Text` object).
 - Attach subviews and propagate the chain.
 
-#### 3.2.2. UiStore ####
+#### 3.3.2. UiStore ####
 
 **API** : [`UiStore.java`](../src/main/java/seedu/toluist/ui/UiStore.java)
 
-`UiStore` holds the data to be used by the `Ui`. An example would be the task data to be displayed to the user.
+`UiStore` holds the data to be used by `Ui`. An example would be the task data to be displayed to the user.
  
 In essence, `UiStore` acts as a **View Model** for the `Ui`. The reason why `UiStore` is separate from the 
-`Model` is because a lot of the states used in `UiStore` are Ui-specific states. Having them separate 
-allows having a clear separation of concern between ui states and business logic states.
+`Model` is because a lot of the states used in `UiStore` are ui-specific states. Having them separate 
+allows having a clear separation of concern between ui states and domain states.
 
-Since `UiStore` acts as a single universal state container for the Ui, it also implements the **Singleton** 
-pattern.
+Since `UiStore` acts as a single universal state container for `Ui`, it also implements the **Singleton** 
+pattern, to restrict the instantiation of the class to one object.
 
-#### 3.2.3. Reactive nature of the UI ####
+#### 3.3.3. Reactive nature of the UI ####
 
 To keep the Ui predictable and to reduce the number of lines of codes used to dictate how the UI should 
-change based on state changes, we make use of reactive programming in our UI.
+change based on state changes, we make use of reactive programming.
  
-You can declare how the Ui should be rendered based solely on the states held by the `UiStore`. `Ui` and 
-`UiStore` together implement the **Observer-Observable** pattern where the `Ui` will listen directly to changes in `UiStore` and re-render automatically.
+You can declare how a `UiView` should be rendered based solely on the states held by the `UiStore`. `UiView` 
+and `UiStore` together implement the **Observer-Observable** pattern where the `UiView` will listen directly
+ to changes in `UiStore` and re-render automatically.
 
 To make an `UiView` object listen to changes to from a state in `UiStore`, you can use the `bind` API 
 provided by `UiStore`. For example, `ResultView` is bound to the observable property 
-`observableCommandResult` of `UiStore` with `uiStore.bind(resultView, uiStore.getObservableCommandResult())
-`. This way, whenever the command result changes in `UiStore`, the result view will re-render itself.
+`observableCommandResult` of `UiStore` using `uiStore.bind(resultView, uiStore.getObservableCommandResult())
+`. This way, whenever the command result changes in `UiStore`, the result view will re-render itself to 
+show the updated result text.
 
 The diagram below shows how `Ui` reacts when an add command is called. The UI 
 simply needs to display all the tasks available in the `UiStore`, without knowing what was the exact change.
@@ -192,7 +206,10 @@ simply needs to display all the tasks available in the `UiStore`, without knowin
 
 The reactive approach is borrowed from modern Javascript front-end frameworks such as [React.js](https://facebook.github.io/react/) and [Vue.js](https://vuejs.org/v2/guide/reactivity.html).
 
-### 3.3. Dispatcher component
+### 3.4. Dispatcher component
+
+<img src="images/DispatcherClassDiagram.png" width="600"><br>
+**Figure 3.4**: Structure of the Dispatcher Component
 
 **API** : [`Dispatcher.java`](../src/main/java/seedu/toluist/dispatcher/Dispatcher.java)
 
@@ -200,10 +217,10 @@ The `Dispatcher` acts like a router in a traditional Web MVC architecture. On re
  
 In effect, `Dispatcher` is implementing the **Facade** pattern, shielding the command logic from the Ui.
 
-### 3.4. Controller component
+### 3.5. Controller component
 
 <img src="images/ControllerClassDiagram.png" width="600"><br>
-**Figure 3.4**: Structure of the Controller Component
+**Figure 3.5**: Structure of the Controller Component
 
 **API** : [`Controller.java`](../src/main/java/seedu/toluist/controller/Controller.java)
 
@@ -216,56 +233,70 @@ carries the functionality of a different command.
 
 Some other interesting properties of `Controller` are described below.
 
-#### 3.4.1. Responsible for its own tokenization
+#### 3.5.1. Responsible for its own tokenization
 
-As opposed to having central `Tokenizer` or `Parser` class to decide how to tokenize all the different 
+As opposed to having a central `Tokenizer` or `Parser` class to decide how to tokenize all the different 
 commands, each `Controller` provides its own implementation for `tokenize`. This is more modular than 
 having a single `Tokenizer` class, as different commands can have very different formats, leading to very 
 different tokenization logic in the corresponding `Controller` classes (Though if the logic is similar, 
 they can be shared through a helper class).
 
-In effect, this is applying **Open Closed Principle**, as the `Dispatcher` does not need 
+In effect, this is applying **Open Closed Principle**, as `Dispatcher` does not need 
 to be aware of how the various `Controller` classes do their tokenization, and only interact with each 
 `Controller` through the common API `tokenize`. For new commands with vastly different formats, you can 
 then easily add a new `Controller` with its own `tokenize` implementation.
 
-#### 3.4.2. Responsible for its own parameter suggestions
+#### 3.5.2. Responsible for its own parameter suggestions
 
-To support parameter suggestion, each `Controller` must also implement the API `getSuggestedKeywordMapping` 
-which provide a list of parameters for each command, as well as any options specific to a parameter. 
+To support parameter suggestion, each `Controller` must also provide a list of parameters for each command,
+ any fixed options specific to a parameter, as well as any keywords that should not appear together in the 
+ command. 
+ 
 Again, there was a conscious decision to let this be provided individually by each `Controller`. Though an 
 alternative approach is to have a single class that stores all the keywords used by all commands, this 
 approach quickly grows out of hand when there are different commands having the same parameter, but used for 
 different purposes. 
 
-Again, **Open Closed Principle** is applied here, where a new `Controller` can be added easily while the 
-implementation for getting suggested keyword inside `CommandDispatcher` can remain unchanged.
+Again, ToLuist applies **Open Closed Principle** here, where a new `Controller` can be added 
+easily while the 
+implementation for getting suggested keywords inside `Dispatcher` can remain unchanged.
 
-#### 3.4.3 Controller common classes
+#### 3.5.3 Controller common classes
 
 Classes used by multiple components in the controllers are in the `seedu.toluist.controller.commons` package.<br>
 
 Controllers will execute the command by separating the command word and the index(es) (if it exist) from the rest of the description.
 
-##### 3.4.3.1 IndexParser
+##### 3.5.3.1 IndexParser
 
 The index(es) is/are passed through `IndexParser` class to obtain a list of indexes, so that the command action can be applied to the task with these indexes.
 
 E.g. For the command `delete - 3, 5, 7-9, 10 -`, the indexes string `- 3, 5, 7-9, 10 -` is passed into the IndexParser, and the controller specifies that there are at most `11` tasks. IndexParser will then return a list of indexes `1, 2, 3, 5, 7, 8, 9, 10, 11` so that the `delete` action can be applied to each of these tasks that correspond to each index.
 
-##### 3.4.3.2 KeywordTokenizer
+##### 3.5.3.2 KeywordTokenizer
 
 The description is passed through `KeywordTokenizer` class to obtain a dictionary of parameter-value tokens, where each of the token is handled separatedly by the controller itself.
 
 E.g. For the command `update 1 buy milk /tags strong bones /by friday`, the description `buy milk /tags strong bones /by friday` is passed into the KeywordTokenizer, and the controller specifies that the default keyword for unmatched strings is `description`. KeywordTokenizer will then return a dictionary of tokens `tags -> strong bones`, `by -> friday` and `description -> buy milk`, where each token will be handled separately in `UpdateTaskController`.
 
-### 3.5. Model component
+### 3.6. Model component
 
 **API** : [`TodoList.java`](../src/main/java/seedu/toluist/model/TodoList.java)
 
 The `Model` component stores the task data for the app inside the memory.
 
-### 3.6. Storage component
+The todo list data in ToLuist is represented by `TodoList` class. `TodoList` applies **Singleton** pattern,
+ so all `Controller` classes can access the same `TodoList` instance when manipulating data.
+
+Each `ToLuist` instance holds many `Task` objects. Depending on whether the properties `startDateTime` and 
+`endDateTime` are set, `Task` can represent floating task, task with deadline or event.
+
+The state diagram below represents the relationships between different types of tasks
+
+<img src="images/TaskStateDiagram.png" width="600"><br>
+**Figure 3.6**: Relationships between different task types
+
+### 3.7. Storage component
 
 **API** : [`TodoListStorage.java`](../src/main/java/seedu/toluist/storage/TodoListStorage.java)
 
@@ -292,7 +323,7 @@ get the previous data state. An additional benefit is that the integrity of the 
 the `undoHistoryStack`, and we do not need to keep track of what the previous mutating commands were.
 
 [comment]: # (@@author A0162011A)
-### 3.7. Common classes
+### 3.8. Common classes
 
 Classes used by multiple components are in the `seedu.toluist.commons` package.
 
