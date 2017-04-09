@@ -78,7 +78,7 @@ public class TaskTest {
     @Test
     public void setDeadline() {
         LocalDateTime now = LocalDateTime.now();
-        testTask.setDeadLine(now);
+        testTask.setToDeadlineTask(now);
         assertEquals(testTask.getEndDateTime(), now);
         // task is now a task with deadline
         assertTrue(testTask.isTaskWithDeadline());
@@ -88,7 +88,7 @@ public class TaskTest {
     public void setFromTo() {
         LocalDateTime from = LocalDateTime.now().minusDays(1);
         LocalDateTime to = LocalDateTime.now();
-        testTask.setFromTo(from, to);
+        testTask.setToEvent(from, to);
         assertEquals(testTask.getStartDateTime(), from);
         assertEquals(testTask.getEndDateTime(), to);
         // task is now an event
@@ -113,15 +113,15 @@ public class TaskTest {
     @Test
     public void isOverdue() {
         // incomplete task with end date passed is overdue
-        testTask.setDeadLine(LocalDateTime.now().minusDays(1));
+        testTask.setToDeadlineTask(LocalDateTime.now().minusDays(1));
         assertTrue(testTask.isOverdue());
 
         // incomplete task with end date in future is not overdue
-        testTask.setDeadLine(LocalDateTime.MAX);
+        testTask.setToDeadlineTask(LocalDateTime.MAX);
         assertFalse(testTask.isOverdue());
 
         // complete task with end date passed is not overdue
-        testTask.setDeadLine(LocalDateTime.MIN);
+        testTask.setToDeadlineTask(LocalDateTime.MIN);
         testTask.setCompleted(true);
         assertTrue(testTask.isCompleted());
         assertFalse(testTask.isOverdue());
