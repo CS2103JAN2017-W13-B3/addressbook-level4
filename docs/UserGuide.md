@@ -179,7 +179,7 @@ cycle through the list of suggestions, and press <kbd>Enter</kbd> to select one 
 When using ToLuist, you may want to switch between different tabs to zoom in on the tasks most important to
  you.<br>
 `switch` allows you to view a different subset of the currently displayed tasks.<br>
-The different tabs are shown at the top of ToLuist, under the Title.
+The different tabs are shown at the top of ToLuist, under the App Title.
 
    <img src="images/Tabs.png" width="600"><br>
    **Figure 3.3**: Tabs in ToLuist.
