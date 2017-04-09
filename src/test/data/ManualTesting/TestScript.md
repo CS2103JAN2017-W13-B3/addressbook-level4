@@ -31,7 +31,7 @@ Result: Check that the parameters `/from` and `/to` are not suggested as they co
 
 ## Command parameter option suggestions
 
-Input: Type `add a task /priority ` without entering<br>
+Input: Type `add a task /priority` without entering. Press <kbd>Space</kbd><br>
 Result: Check that `high` & `low` are suggested
 
 ## Add
