@@ -185,7 +185,7 @@ pattern, to restrict the instantiation of the class to one object.
 
 #### 3.3.3. Reactive nature of the UI ####
 
-To keep the Ui predictable and to reduce the number of lines of codes used to dictate how the UI should 
+To keep `UI` predictable and to reduce the number of lines of codes used to dictate how the `UI` should 
 change based on state changes, we make use of reactive programming.
  
 You can declare how a `UiView` should be rendered based solely on the states held by the `UiStore`. `UiView` 
@@ -198,7 +198,7 @@ provided by `UiStore`. For example, `ResultView` is bound to the observable prop
 `. This way, whenever the command result changes in `UiStore`, the result view will re-render itself to 
 show the updated result text.
 
-The diagram below shows how `Ui` reacts when an add command is called. The UI 
+The diagram below shows how `UI` reacts when an add command is called. `UI` 
 simply needs to display all the tasks available in the `UiStore`, without knowing what was the exact change.
 
 <img src="images/UiSequence.png" width="600"><br>
