@@ -1,8 +1,6 @@
 //@@author A0162011A
 package guitests;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 import seedu.toluist.commons.core.Messages;
