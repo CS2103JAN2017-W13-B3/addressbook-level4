@@ -339,8 +339,8 @@ and logging destinations.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected, which may possibly cause the termination of the application.
-* `WARNING` : Can continue, but with caution.
+* `SEVERE` : A critical problem is detected, which may possibly cause the termination of the application.
+* `WARNING` : Caution is advised.
 * `INFO` : Information showing noteworthy actions by ToLuist.
 * `FINE` : Details that are not usually noteworthy but may be useful in debugging.
 
