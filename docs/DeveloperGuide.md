@@ -22,7 +22,7 @@ By : `Team ToLuist`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jan 2017`  &nbsp;&nbsp;&nb
 Welcome to ToLuist's Developer Guide.
 
 By going through this document, you will learn how to set up the project, understand the architecture of the 
-application as well as know how to troubleshoot some common development issues.
+application, as well as know how to troubleshoot some common development issues.
 
 We have organized the guide in a top-down manner so that, as a new developer, you can look at the big picture of the project
  before zooming in on specific components.
@@ -37,7 +37,7 @@ Here are some tasks you should to complete before diving into the project.
 
     > Having any Java 8 version is not enough. This app will not work with earlier versions of Java 8.
 
-2. Download and install **Eclipse** Itegrated Development Environment on your computer.
+2. Download and install **Eclipse** Integrated Development Environment on your computer.
 3. Install **e(fx)clipse** plugin for Eclipse 
 (Proceed from step 2 
 onwards in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
