@@ -174,7 +174,7 @@ Each `UiView` has a mini lifecycle. `viewDidLoad` is run after `render` is calle
 
 **API** : [`UiStore.java`](../src/main/java/seedu/toluist/ui/UiStore.java)
 
-`UiStore` holds the data to be used by `Ui`. An example would be the task data to be displayed to the user.
+`UiStore` holds the data to be used by `Ui`. An example would be the task data displayed to the user.
  
 In essence, `UiStore` acts as a **View Model** for the `Ui`. The reason why `UiStore` is separate from the 
 `Model` is because a lot of the states used in `UiStore` are ui-specific states. Having them separate 
