@@ -326,6 +326,17 @@ Result: The task at index 2 will have the tags `newTag1` and `newTag2` removed.
 Input: `save NewFile.json`.<br>
 Result: Note the change in file location in the status bar.
 
+## Showing command history
+
+Input: `history`<br>
+Result: Show all the commands used in the current session.
+
+Input: Type `add` without entering. Press <kbd>UP</kbd><br>
+Result: Command text is changed to the previously entered command.
+
+Input: Press <kbd>DOWN</kbd><br>
+Result: Command text is changed to `add`.
+
 ## Exit ToLuist
 
 Input:
