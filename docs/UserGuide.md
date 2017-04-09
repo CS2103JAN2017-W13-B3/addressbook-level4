@@ -218,10 +218,15 @@ Example:
 ### 3.4. Adding a task: `add`
 
 You can start keeping track of your tasks by adding them to ToLuist.<br>
-`add` allows you to add a task to the system.<br>
-Format: `add DESCRIPTION [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/repeat PERIOD(daily/weekly/monthly/yearly)] [/repeatuntil REPEATDATE] [/priority PRIORITY(high/low)] [/tags TAGS]`
+`add` allows you to add a task to the system.<br><br>
 
-> * `/from` and `/to` must be used together.
+We support 3 types of tasks.<br>
+> * Floating task (tasks with no start date and no end date)
+> * Deadline task (tasks with an end date, i.e. the deadline)
+> * Event (tasks with both start date and end date)<br>
+
+Format: `add DESCRIPTION [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/repeat PERIOD(daily/weekly/monthly/yearly)] [/repeatuntil REPEATDATE] [/priority PRIORITY(high/low)] [/tags TAGS...]`
+
 > * The values entered for `STARTDATE` and `ENDDATE` are very flexible:<br>
     Standard dates are parsed, with the month being before the day. i.e. `MM/DD/YY`, `MM/DD/YYYY`, `YYYY/MM/DD`, `YYYY/MM/DD`<br>
     Relaxed dates are parsed as logically as possible. i.e. `Jan 21, '97`, `Sun, Nov 21`, `The 31st of April in the year 2017`<br>
@@ -229,29 +234,44 @@ Format: `add DESCRIPTION [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/repeat PE
     Standard times are parsed in as well. i.e. `0600h`, `8pm`, `noon`, `4:30 p.m.`<br>
     Similar to dates, relative times are also allowed. i.e. `5 minutes from now`, `in 10 minutes`, `5 hours ago`<br>
     For more details, please visit http://natty.joestelmach.com/doc.jsp.
+> * Use `/from` and `/to` to add an event.
+> * Use `/by` to add a deadline task.
+> * Use `/priority` to specify the priority level of the task, so you can bring the task higher on your list to be done.
+> * Use `/tags` to add tags to the task, so you can group your task by different categories.
+> * For tasks/deadlines/events that occur once every fixed period, you don't have to add the task over and over again each time. Simply use `/repeat` to specify the recurring period to add a recurring task/deadline/event. By default, the task/deadline/event will recur indefinitely. Use `/repeatuntil` to specify the end date of recurrence.
 > * ToLuist will auto scroll to the newly added task.
-
-#### 3.4.1. Adding a 
 
 Examples:
 
 * `add Do Homework` <br>
   Adds a task called `Do Homework`.
 * `add Meeting With Boss /from 11-11-2011 17:30 /to 11-11-2011 19:30` <br>
-  Adds a task called `Meeting With Boss`, with start date 11-11-2011 17:30, and end date to be 11-11-2011 19:30.
-* `add Check Email /by today` <br>
-  Adds a task called `Check Email`, and sets the deadline to be today's date.
+  Adds a task called `Meeting With Boss`, with start date 11-11-2011 17:30, and end date 11-11-2011 19:30.
+* `add Check Email /by today 5pm` <br>
+  Adds a task called `Check Email`, and sets the deadline to be today's 5pm.
+* `add Attend Lecture /from friday 4pm /to friday 5:30 p.m. /repeat weekly /repeatuntil 7 April 6pm`<br>
+  Adds a task called `Attend Lecture`, with start date at the upcoming friday 16:00, and end date at the upcoming friday 17:30. It will repeat every friday until 07-04-2017 18:00.
+* `add Remember Valentines Day /priority high /tags angry-gf cannot-forget`
+  Adds a task called `Remember Valentines Day` with high priority and set two tags - `angry-gf` and `cannot-forget` - to this task.
 
 [comment]: # (@@author A0127545A)
 ### 3.5. Updating a task: `update`
 
 Sometimes, you may need to update or fix a previously entered task.<br>
 `update` allows you to update an existing task in the list.<br>
-Format: `update INDEX [DESCRIPTION] [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/repeat PERIOD(daily/weekly/monthly/yearly)] [/repeatuntil REPEATDATE] [/stoprepeating] [/floating] [/priority PRIORITY(high/low)] [/tags TAGS]`
+Format: `update INDEX [DESCRIPTION] [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/floating] [/repeat PERIOD(daily/weekly/monthly/yearly)] [/repeatuntil REPEATDATE] [/stoprepeating] [/priority PRIORITY(high/low)] [/tags TAGS...]`
 
 > * Updates the task at the specified `INDEX`. <br>
 > * Only fields entered will be updated.
-> * When editing tags, the existing tags of the task will be set to contain the new tags; the old tags will be removed.
+> * Use `DESCRIPTION` to update the description of the task, so you can provide more context or make your description clearer for yourself to remember.
+> * Use `/from` and `/to` to update a task to an event. If it is originally an event, updates the `STARTDATE` or `ENDDATE` depending on whether `/from` or `/to` is specified respectively.
+> * Use `/by` to update a task to a deadline. If it is originally a deadline, updates the deadline's `ENDDATE`.
+> * Use `/floating` to convert a task to a floating task.
+> * Use `/repeat` to convert a non-recurring task to a recurring task of some `PERIOD`. If it is originally a recurring task, updates the `PERIOD`.
+> * Use `/repeatuntil` to update the end date of occurrence. This applies to recurring tasks only.
+> * Use `/stoprepeating` to convert a recurring task to a non-recurring task.
+> * Use `/priority` to update the priority level of the task.
+> * Use `/tags` to update tags. The existing tags of the task will be set to contain the new tags; the old tags will be removed.
 
 
 Examples:
@@ -260,6 +280,19 @@ Examples:
   Updates the name of the 2nd task to be `Assignment 3`.
 * `update 3 /from today /to tomorrow` <br>
   Updates the start date and end date of the 3rd task to today and tomorrow respectively.
+* `update 1 /floating`<br>
+  Updates the 1st task to a floating task.
+* `update 2 /by friday`<br>
+  Updates the 2nd task to a deadline task ending on Friday.
+* `update 3 /repeat monthly`<br>
+  Updates the 3rd task to a task that recurs every month.
+* `update 3 /stoprepeating`<br>
+  Updates the 3rd task to a non-recurring task.
+* `update 1 /priority high`<br>
+  Updates the 1st task to high priority.
+* `update 2 /tags replace all previous tags`
+  Removes all previous tags in 2nd task, and set four tags - `replace` `all` `previous` `tags` - to this task.
+
 
 [comment]: # (@@author A0162011A)
 ### 3.6. Filtering all tasks for a given keyword: `filter`
