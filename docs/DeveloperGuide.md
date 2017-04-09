@@ -291,7 +291,7 @@ The todo list data in ToLuist is represented by `TodoList` class. `TodoList` app
 Each `ToLuist` instance holds many `Task` objects. Depending on whether the properties `startDateTime` and 
 `endDateTime` are set, `Task` can represent floating task, task with deadline or event.
 
-The state diagram below represents the relationships between different types of tasks
+The state diagram below represents the relationships between different types of tasks.
 
 <img src="images/TaskStateDiagram.png" width="600"><br>
 **Figure 3.6**: Relationships between different task types
