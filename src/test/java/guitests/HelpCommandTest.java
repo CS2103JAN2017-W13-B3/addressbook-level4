@@ -37,8 +37,8 @@ public class HelpCommandTest extends ToLuistGuiTest {
     @Test
     public void viewInvalidHelp() {
         String command = "help asdfasdfsadfaf";
-        commandBox.runCommand(command);
-        assertResultMessage("Sorry, that command does not exist.\nPlease type help for available commands.");
+        runCommandThenCheckForResultMessage(command,
+                "Sorry, that command does not exist.\nPlease type help for available commands.");
         assertFalse(helpView.isVisible());
     }
 

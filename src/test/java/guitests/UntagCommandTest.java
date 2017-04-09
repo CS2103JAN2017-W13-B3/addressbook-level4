@@ -21,8 +21,7 @@ public class UntagCommandTest extends ToLuistGuiTest {
         Task task = new TypicalTestTodoLists().getTypicalTasks()[0];
         task.removeTag(lewisTag);
         String command = "untag 1 lewis";
-        commandBox.runCommand(command);
-        assertTrue(isTaskShown(task));
+        runCommandThenCheckForTasks(command, new Task[] { task }, new Task[0]);
     }
 
     @Test
@@ -33,24 +32,21 @@ public class UntagCommandTest extends ToLuistGuiTest {
         task.removeTag(lewisTag);
         task.removeTag(workTag);
         String command = "untag 1 lewis work";
-        commandBox.runCommand(command);
-        assertTrue(isTaskShown(task));
+        runCommandThenCheckForTasks(command, new Task[] { task }, new Task[0]);
     }
 
     @Test
     public void revoveTag_nonExistingTags() {
         Task task = new TypicalTestTodoLists().getTypicalTasks()[0];
         String command = "untag 1 aTag";
-        commandBox.runCommand(command);
-        assertTrue(isTaskShown(task));
+        runCommandThenCheckForTasks(command, new Task[] { task }, new Task[0]);
     }
 
     @Test
     public void removeTag_InvalidIndex() {
         String[] validCommandWithInvalidIndex = { "untag 0 aTag", "untag 1000 aTag"};
         for (String command : validCommandWithInvalidIndex) {
-            commandBox.runCommand(command);
-            assertResultMessage(Messages.MESSAGE_INVALID_TASK_INDEX);
+            runCommandThenCheckForResultMessage(command, Messages.MESSAGE_INVALID_TASK_INDEX);
         }
     }
 
@@ -58,8 +54,8 @@ public class UntagCommandTest extends ToLuistGuiTest {
     public void removeTag_InvalidFormat() {
         String[] invalidCommands = { "untag", "untag aTag", "untag aTag bTag", "untag aTag 1",  "untag 1"};
         for (String command : invalidCommands) {
-            commandBox.runCommand(command);
-            assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, "untag"));
+            runCommandThenCheckForResultMessage(command,
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, "untag"));
         }
     }
 }
