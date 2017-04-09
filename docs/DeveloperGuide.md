@@ -118,8 +118,8 @@ The rest of the App consists of five components:
 * [**`Model`**](#36-model-component) holds the data of the application in the memory.
 * [**`Storage`**](#37-storage-component) reads data from, and writes data to, the hard disk.
 
-Our architecture follows the **Model-View-Controller** (MVC) Pattern. UI displays data and interacts with the user. Commands are passed through the Dispatcher and routed to a suitable Controller. The Controller receives requests from the Dispatcher and acts as the 
-bridge between the UI and the Model. The Model & Storage store and maintain the data. 
+Our architecture follows the **Model-View-Controller** (MVC) Pattern. `UI` displays data and interacts with the user. Commands are passed through the `Dispatcher` and routed to a suitable `Controller`. The `Controller` receives requests from the `Dispatcher` and acts as the 
+bridge between the `UI` and the `Model`. The `Model` & `Storage` store and maintain the data. 
 Inspirations for this design came from MVC architectures used by web MVC frameworks such as [Ruby on Rails](http://paulhan221.tumblr.com/post/114731592051/rails-http-requests-for-mvc) and [Laravel](http://laravelbook.com/laravel-architecture/).
 
 The sections below explain each component in more details.
