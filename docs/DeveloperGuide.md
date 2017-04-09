@@ -97,7 +97,7 @@ Integration** plugin.
 The **_Architecture Diagram_** given above explains the high-level design of ToLuist.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for:
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/toluist/MainApp.java). It is responsible for:
 
 * Initializing the components in the correct sequence, and connecting them with each other during app launch.
 * Shutting down the components and invoking cleanup methods where necessary when exiting the app.
@@ -113,7 +113,7 @@ The rest of the App consists of five components:
 
 * [**`UI`**](#32-ui-component) renders the GUI of the app.
 * [**`Dispatcher`**](#33-dispatcher-component) invokes a suitable command executor.
-* [**`Controller`**](#34-logic-component) executes the command.
+* [**`Controller`**](#34-controller-component) executes the command.
 * [**`Model`**](#35-model-component) holds the data of the application in the memory.
 * [**`Storage`**](#36-storage-component) reads data from, and writes data to, the hard disk.
 
@@ -165,10 +165,10 @@ Each `UiView` has a mini lifecycle. `viewDidLoad` is run after `render` is calle
 `UiStore` holds the data to be used by the `Ui`. An example would be the task data to be displayed to the user.
  
 In essence, `UiStore` acts as a **View Model** for the `Ui`. The reason why `UiStore` is separate from the 
-`Model` is because a lot of the states used in the `UiStore` are Ui-specific states. Having them separate 
+`Model` is because a lot of the states used in `UiStore` are Ui-specific states. Having them separate 
 allows having a clear separation of concern between ui states and business logic states.
 
-Since `UiStore` acts as a single universal state container for the Ui, it also implement the *Singleton* 
+Since `UiStore` acts as a single universal state container for the Ui, it also implements the **Singleton** 
 pattern.
 
 #### 3.2.3. Reactive nature of the UI ####
@@ -188,7 +188,7 @@ The diagram below shows how `Ui` reacts when an add command is called. The UI
 simply needs to display all the tasks available in the `UiStore`, without knowing what was the exact change.
 
 <img src="images/UiSequence.png" width="600"><br>
-**Figure 3.2.3**: Interactions Inside the UI for the `add study` Command_
+**Figure 3.2.3**: Interactions inside the UI for the `add study` command.
 
 The reactive approach is borrowed from modern Javascript front-end frameworks such as [React.js](https://facebook.github.io/react/) and [Vue.js](https://vuejs.org/v2/guide/reactivity.html).
 
@@ -196,9 +196,9 @@ The reactive approach is borrowed from modern Javascript front-end frameworks su
 
 **API** : [`Dispatcher.java`](../src/main/java/seedu/toluist/dispatcher/Dispatcher.java)
 
-`Dispatcher` acts like a router in a traditional Web MVC architecture. On receiving new input from the UI, `Dispatcher` decides which `Controller` is the best candidate to handle the input, then instantiates and asks the `Controller` object to execute the command.
+The `Dispatcher` acts like a router in a traditional Web MVC architecture. On receiving new input from the UI, the `Dispatcher` decides which `Controller` is the best candidate to handle the input, then instantiates and asks the `Controller` object to execute the command.
  
-In effect, `Dispatcher` is implementing the **Facade**, shielding the command logic from the Ui.
+In effect, `Dispatcher` is implementing the **Facade** pattern, shielding the command logic from the Ui.
 
 ### 3.4. Controller component
 
@@ -208,10 +208,10 @@ In effect, `Dispatcher` is implementing the **Facade**, shielding the command lo
 **API** : [`Controller.java`](../src/main/java/seedu/toluist/controller/Controller.java)
 
 `Controller` has an `execute` method to execute the command passed by the dispatcher. The command execution
- can affect the `Model`, the `Storage` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the dispatcher. After every `execute` invocation, `Controller` can optionally set new states in the `UiStore`, which subsequently trigger a Ui re-render.
+ can affect the `Model`, the `Storage` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the dispatcher. After every `execute` invocation, the `Controller` can optionally set new states in the `UiStore`, which subsequently trigger a Ui re-render.
 
-Each command is represented by a different Controller class, which all extends from the abstract 
-`Controller` class. The `Controller` is implementing the `Command` pattern, where each `Controller` class 
+Each command is represented by a different `Controller` class, which all extends from the abstract 
+`Controller` class. The `Controller` is implementing the **Command** pattern, where each `Controller` class 
 carries the functionality of a different command.
 
 Some other interesting properties of `Controller` are described below.
@@ -221,11 +221,11 @@ Some other interesting properties of `Controller` are described below.
 As opposed to having central `Tokenizer` or `Parser` class to decide how to tokenize all the different 
 commands, each `Controller` provides its own implementation for `tokenize`. This is more modular than 
 having a single `Tokenizer` class, as different commands can have very different formats, leading to very 
-different tokenization logics in the corresponding `Controller` classes (Though if the logics are similar, 
+different tokenization logic in the corresponding `Controller` classes (Though if the logic is similar, 
 they can be shared through a helper class).
 
-In effect, this is applying `Open Closed Principle`, as the `Dispatcher` do not need 
-to be aware of how the different `Controller` do their tokenization, and only interact with each 
+In effect, this is applying **Open Closed Principle**, as the `Dispatcher` does not need 
+to be aware of how the various `Controller` classes do their tokenization, and only interact with each 
 `Controller` through the common API `tokenize`. For new commands with vastly different formats, you can 
 then easily add a new `Controller` with its own `tokenize` implementation.
 
@@ -238,20 +238,20 @@ alternative approach is to have a single class that stores all the keywords used
 approach quickly grows out of hand when there are different commands having the same parameter, but used for 
 different purposes. 
 
-Again, `Open Closed Principle` is applied here, where a new `Controller` can be added easily while the 
+Again, **Open Closed Principle** is applied here, where a new `Controller` can be added easily while the 
 implementation for getting suggested keyword inside `CommandDispatcher` can remain unchanged.
 
 ### 3.5. Model component
 
 **API** : [`TodoList.java`](../src/main/java/seedu/toluist/model/TodoList.java)
 
-The `Model` stores the task data for the app inside the memory.
+The `Model` component stores the task data for the app inside the memory.
 
 ### 3.6. Storage component
 
 **API** : [`TodoListStorage.java`](../src/main/java/seedu/toluist/storage/TodoListStorage.java)
 
-The `Storage` component
+The `Storage` component:
 - acts like a database in the application.
 - provides read/write funcionalities to the `Model`, encapsuling all the inner implementation details.
 - can save the task data in json format and read it back.
@@ -282,26 +282,25 @@ Classes used by multiple components are in the `seedu.toluist.commons` package.
 
 ### 4.1. Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+We are using the `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * You can control the logging level by using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration)).
+  (See [Configuration](#42-configuration)).
 * You can obtain the `Logger` for a class by using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level.
-* Currently log messages are output through `Console` and to a `.log` file.
+* Currently, log messages are output through `Console` and to a `.log` file.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `SEVERE` : Critical problem detected, which may possibly cause the termination of the application.
 * `WARNING` : Can continue, but with caution.
-* `INFO` : Information showing the noteworthy actions by the App.
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging.
-  e.g. The actual list is printed instead of just its size.
+* `INFO` : Information showing noteworthy actions by ToLuist.
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging.
 
 ### 4.2. Configuration
 
-You can control certain properties of the application (e.g App name, logging level) through the configuration file
+You can control certain properties of the application (e.g logging level) through the configuration file
 (default: `config.json`).
 
 ## 5. Testing
@@ -311,7 +310,7 @@ You can find the tests in the `./src/test/java` folder.
 **In Eclipse**:
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+  `Run as` > `JUnit Test`.
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
@@ -329,27 +328,17 @@ We have two types of tests:
       e.g. `seedu.toluist.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
-      e.g. `seedu.toluist.storage.StorageManagerTest`
+      e.g. `seedu.toluist.storage.JsonStorageTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.toluist.controller.AddControllerTest`
 
 #### Headless GUI Testing
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ our GUI tests can be run in _headless_ mode.
+ In headless mode, GUI tests do not show up on the screen.
+ That means the developer can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-
-### 5.1. Troubleshooting tests
-
- **Problem: Tests fail because NullPointException when AssertionError is expected**
-
- * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described
-   [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
 
 ## 6. Dev Ops
 
@@ -379,11 +368,11 @@ Here are the steps to create a new release.
 ### 6.5. Managing Dependencies
 
 A project often depends on third-party libraries. For example, ToLuist depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for JSON parsing. Managing these _dependencies_
+[Jackson library](https://github.com/FasterXML/jackson) for JSON parsing. Managing these dependencies
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+a. Include those libraries in the repo (this bloats the repo size).<br>
+b. Require developers to download those libraries manually (this creates extra work for developers).<br>
 
 [comment]: # (@@author A0127545A)
 ## Appendix A : User Stories
@@ -402,17 +391,17 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | mark a task as completed/incompleted | focus on the tasks I have still not cleared
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | add a new event | remind myself of things I have to attend
-`* * *` | user | see all events | have an overview of all the things I need to events
+`* * *` | user | see all events | have an overview of all the things I need to attend
 `* * *` | user | update an event | change entries that are errorneous or outdated
 `* * *` | user | delete an event | remove entries that I no longer need
 `* * *` | user | find a task by name | locate details of task without having to go through the entire list
 `* * *` | user | find a task by tag | locate details of task without having to go through the entire list
-`* * *` | user | add tag to task | group my tasks to provide more context
-`* * *` | user | update tag in task | change entries that are errorneous or outdated
-`* * *` | user | remove tag from task | remove entries that I no longer need
+`* * *` | user | add a tag to a task | group my tasks to provide more context
+`* * *` | user | update a tag for a task | change entries that are errorneous or outdated
+`* * *` | user | remove a tag from a task | remove entries that I no longer need
 `* * *` | user | undo previous command(s) | recover gracefully from making mistakes
 `* * *` | user | redo previously undone command(s) | recover gracefully from  wrongly resolving a mistake
-`* * *` | user | see my [command history](#command-history) | to identify what I have to recover if I accidentally performed some wrong commands.
+`* * *` | user | see my [command history](#command-history) | identify what I have to recover if I had accidentally performed some wrong commands.
 `* * *` | user | change my storage file path | decide where I want to save my files for my own use
 `* * *` | user | exit the program | gracefully shut down the program when I don't need to use it
 `* *` | experienced user | add an [alias](#alias) for a command | customise my own keyboard shortcuts to improve my efficiency
@@ -441,14 +430,14 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. Actor requests to add a task/event with `description` in the input box.
-2. System adds the task/event. System shows a feedback message ("Task `description` added") and displays the updated list.<br>
+2. System adds the task/event. System shows a feedback message and displays the updated list.<br>
 Use case ends.
 
 **Extensions**
 
-1a. `description` is not provided.
+2a. `description` is not provided.
 
-> 1a1. System shows an error message ("Please provide a task description") with the correct format example.<br>
+> 2a1. System shows an error message with the correct format example.<br>
 > Use case resumes at step 1
 
 #### Use case 3: Update a task/event
@@ -456,32 +445,32 @@ Use case ends.
 **MSS**
 
 1. Actor requests to update a task/event with `index` number in the input box.
-2. System finds the task/event and updates it. System shows a feedback message ("Task successfully updated") and displays the updated list.<br>
+2. System finds the task/event and updates it. System shows a feedback message and displays the updated list.<br>
 Use case ends.
 
 **Extensions**
 
 2a. `index` number given is invalid or cannot be found (i.e. `index` number is not a positive integer, or an out-of-range positive integer).
 
-> 2a1. System shows an error message ("Please provide a proper index number") with the correct format example.
+> 2a1. System shows an error message with the correct format example.
 > Use case resumes at step 1
 
-#### Use case 3: Delete a task/event
+#### Use case 4: Delete a task/event
 
 **MSS**
 
 1. Actor requests to delete a task/event with `index` number in the input box.
-2. System finds the task/event and deletes it. System shows a feedback message ("Task `description` removed") and displays the updated list.<br>
+2. System finds the task/event and deletes it. System shows a feedback message and displays the updated list.<br>
 Use case ends.
 
 **Extensions**
 
 2a. `index` number given is invalid or cannot be found (i.e. `index` number is not a positive integer, or an out-of-range positive integer).
 
-> 2a1. System shows an error message ("Please provide a proper index number") with the correct format example.
+> 2a1. System shows an error message with the correct format example.
 > Use case resumes at step 1
 
-#### Use case 4: Mark a task/event as completed/incomplete
+#### Use case 5: Mark a task/event as completed/incomplete
 
 **MSS**
 
@@ -493,15 +482,15 @@ Use case ends.
 
 2a. `index` number given is invalid or cannot be found (i.e. `index` number is not a positive integer, or an out-of-range positive integer).
 
-> 2a1. System shows an error message ("Please provide a proper index number") with the correct format example.
+> 2a1. System shows an error message with the correct format example.
 > Use case resumes at step 1
 
-#### Use case 5: Undo previous mutated command
+#### Use case 6: Undo previous mutated command
 
 **MSS**
 
 1. Actor requests to `undo` action in the input box.
-2. System finds the most recent command that mutates the list and undoes it. System shows a feedback message ("Undo '`previous command`'") and displays the updated list.<br>
+2. System finds the most recent command that mutates the list and undoes it. System shows a feedback message and displays the updated list.<br>
 Use case ends.
 
 **Extensions**
@@ -512,12 +501,12 @@ Use case ends.
 > Use case ends
 
 
-#### Use case 6: Redo previous undone command
+#### Use case 7: Redo previous undone command
 
 **MSS**
 
 1. Actor requests to `redo` action in the input box.
-2. System finds the most recent undone command that mutates the list and redoes it. System shows a feedback message ("Redo '`previous command`'") and displays the updated list.<br>
+2. System finds the most recent undone command that mutates the list and redoes it. System shows a feedback message and displays the updated list.<br>
 Use case ends.
 
 **Extensions**
@@ -527,12 +516,12 @@ Use case ends.
 > 2a1. System does nothing since there is nothing to redo.
 > Use case ends
 
-#### Use case 7: Add alias for a command
+#### Use case 8: Add alias for a command
 
 **MSS**
 
 1. Actor requests to `alias` a command in the input box with a `new alias name`.
-2. System finds the command and alias it. System shows a feedback message ("`new alias name` is set as the new alias for `command`.").<br>
+2. System finds the command and alias it. System shows a feedback message.<br>
 Use case ends.
 
 **Extensions**
@@ -541,21 +530,22 @@ Use case ends.
 > 2a1. System updates the alias name to refer to the new command.<br>
 > Use case resumes at step 3.
 
-#### Use case 8: Remove an alias
+#### Use case 9: Remove an alias
 
 **MSS**
 
 1. Actor requests to `unalias` an `alias` in the input box.
-2. System finds the alias and removes it. System shows a feedback message ("The alias `alias` is removed").<br>
+2. System finds the alias and removes it. System shows a feedback message.<br>
 Use case ends.
 
 **Extensions**
+
 2a. No such existing alias exist.
 
 > 2a1. System shows a feedback message "There is no such existing alias".<br>
 > Use case ends
 
-#### Use case 9: View existing aliases
+#### Use case 10: View existing aliases
 
 **MSS**
 
@@ -563,32 +553,27 @@ Use case ends.
 2. System displays all existing aliases.<br>
 Use case ends.
 
-#### Use case 10: Set data storage file path
+#### Use case 11: Set data storage file path
 
 **MSS**
 
 1. Actor requests to save data to a `new file path`.
-2. System saves task list to the new data storage file path and delete the old file. System shows a message ("Storage file path is updated to: `new file path`").<br>
+2. System saves task list to the new data storage file path and delete the old file. System shows a message.<br>
 Use case ends.
 
 **Extensions**
 
-1a. File path entered is `default`.
+2a. File path is not in the correct format.
 
-> 1a1. System updates data storage file path to default file path. System shows a message ("Storage file path is updated to: `default file path`").<br>
-> Use case ends.
-
-1b. File path is not in the correct format.
-
-> 1b1. System shows an error message ("Storage file path is in the wrong format.") with the correct format example.<br>
+> 2a1. System shows an error message with the correct format example.<br>
 > Use case resumes at step 1.
 
-1c. File path already exist.
+2b. File path already exist.
 
-> 1c1. System shows an error message ("Storage file path is already being used, please choose another location.").<br>
+> 2b1. System shows an error message.<br>
 > Use case resumes at step 1.
 
-#### Use case 11: View command history
+#### Use case 12: View command history
 
 **MSS**
 
@@ -596,7 +581,7 @@ Use case ends.
 2. System displays the command history.<br>
 Use case ends.
 
-#### Use case 12: Exit the program
+#### Use case 13: Exit the program
 
 **MSS**
 
@@ -609,18 +594,17 @@ Use case ends.
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
-   should be able to accomplish most of the tasks faster using commands than using the mouse.
+   should be able to accomplish most of the tasks faster using commands than by using a mouse.
 4. Commands should be reasonably fluid and flexible (i.e. look like written English) so it is more intuitive for users.
-5. When the command entered is errorneous, the system should guess the user's intentions to the best of its ability, and execute the corrected command after the user give his confirmation.
-6. The stored data should never, ever be destroyed unless that is what the user wants.
-7. Should have nice UI/UX so user have a pleasant experience using this App.
-8. Each command should finish executing in less than 2 seconds.
-9. Should have automated unit tests.
-10. Should use Continuous Integration.
-11. Should be kept open source.
-12. Should be a free software.
-13. Source code should be well-documented.
-14. Application should be easy to set up (i.e. no installer required, no assistance required other than a user guide).
+5. The stored data should never, ever be destroyed unless that is what the user wants.
+6. Should have nice UI/UX so the user will have a pleasant experience using ToLuist.
+7. Each command should finish executing in less than 2 seconds.
+8. Should have automated unit tests.
+9. Should use Continuous Integration.
+10. Should be kept open source.
+11. Should be a free software.
+12. Source code should be well-documented.
+13. Application should be easy to set up (i.e. no installer required, no assistance required other than a user guide).
 
 
 ## Appendix D : Glossary
