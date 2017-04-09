@@ -2,8 +2,6 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,7 +48,8 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         runCommandThenCheckForResultMessage(command, "No valid index found.");
 
         command = UPDATE + " 3 " + "description";
-        runCommandThenCheckForResultMessage(command,"No valid index found.");
+        runCommandThenCheckForResultMessage(command,
+                "No valid index found.");
 
         command = UPDATE + " potato " + "description";
         runCommandThenCheckForResultMessage(command, "No valid index found.");
