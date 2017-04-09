@@ -102,7 +102,7 @@ Given below is a quick overview of each component.
 * Initializing the components in the correct sequence, and connecting them with each other during app launch.
 * Shutting down the components and invoking cleanup methods where necessary when exiting the app.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#38-common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
@@ -112,11 +112,11 @@ Two of those classes play important roles at the architecture level.
 
 The rest of the App consists of five components:
 
-* [**`UI`**](#32-ui-component) renders the GUI of the app.
-* [**`Dispatcher`**](#33-dispatcher-component) invokes a suitable command executor.
-* [**`Controller`**](#34-controller-component) executes the command.
-* [**`Model`**](#35-model-component) holds the data of the application in the memory.
-* [**`Storage`**](#36-storage-component) reads data from, and writes data to, the hard disk.
+* [**`UI`**](#33-ui-component) renders the GUI of the app.
+* [**`Dispatcher`**](#34-dispatcher-component) invokes a suitable command executor.
+* [**`Controller`**](#35-controller-component) executes the command.
+* [**`Model`**](#36-model-component) holds the data of the application in the memory.
+* [**`Storage`**](#37-storage-component) reads data from, and writes data to, the hard disk.
 
 Our architecture follows the *Model-View-Controller* (MVC) Pattern. UI displays data and interacts with the user. Commands are passed through the Dispatcher and routed to a suitable Controller. The Controller receives requests from the Dispatcher and acts as the 
 bridge between the UI and the Model. The Model & Storage store and maintain the data. 
