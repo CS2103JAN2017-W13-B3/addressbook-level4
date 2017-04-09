@@ -63,6 +63,7 @@ Role: Developer <br>
   - Clear command
   - History command
   - Hot key up & down to navigate command history
+  - Sort command
 * Code written:
   - [Functional Codes](../collated/main/A0162011A.md)
   - [Test Codes](../collated/test/A0162011A.md)
