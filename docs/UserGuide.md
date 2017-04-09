@@ -199,11 +199,13 @@ Example:
 ### 3.4. Adding a task: `add`
 
 You can start keeping track of your tasks by adding them to ToLuist.<br>
-`add` allows you to add a task to the system.<br>
+`add` allows you to add a task to the system.<br><br>
+
 We support 3 types of tasks.<br>
 > * Floating task (tasks with no start date and no end date)
 > * Deadline task (tasks with an end date, i.e. the deadline)
 > * Event (tasks with both start date and end date)<br>
+
 Format: `add DESCRIPTION [/from STARTDATE /to ENDDATE] [/by ENDDATE] [/repeat PERIOD(daily/weekly/monthly/yearly)] [/repeatuntil REPEATDATE] [/priority PRIORITY(high/low)] [/tags TAGS...]`
 
 > * The values entered for `STARTDATE` and `ENDDATE` are very flexible:<br>
@@ -262,9 +264,9 @@ Examples:
 * `update 1 /floating`<br>
   Updates the 1st task to a floating task.
 * `update 2 /by friday`<br>
-  Updates the 2nd task to a deadline task with deadline on Friday.
+  Updates the 2nd task to a deadline task ending on Friday.
 * `update 3 /repeat monthly`<br>
-  Updates the 3rd task to a task that recur every month.
+  Updates the 3rd task to a task that recurs every month.
 * `update 3 /stoprepeating`<br>
   Updates the 3rd task to a non-recurring task.
 * `update 1 /priority high`<br>
