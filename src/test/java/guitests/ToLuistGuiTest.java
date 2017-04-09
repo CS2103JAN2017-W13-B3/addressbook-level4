@@ -85,7 +85,8 @@ public abstract class ToLuistGuiTest {
                                                                         getConfigFileLocation(),
                                                                         getDataFileLocation()));
         // Sleep for 1 second to allow initial data to be loaded
-        TimeUnit.SECONDS.sleep(1);
+        int sleepTime = 1;
+        TimeUnit.SECONDS.sleep(sleepTime);
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();

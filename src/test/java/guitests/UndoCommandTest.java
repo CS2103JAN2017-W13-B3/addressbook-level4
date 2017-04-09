@@ -20,12 +20,10 @@ public class UndoCommandTest extends ToLuistGuiTest {
         String taskDescription = "build a rocket";
         String addCommand = "add " + taskDescription;
         Task task = new Task(taskDescription);
-        commandBox.runCommand(addCommand);
-        assertTrue(isTaskShown(task));
+        runCommandThenCheckForTasks(addCommand, new Task[] { task }, new Task[0]);
 
         String undoCommand = "undo";
-        commandBox.runCommand(undoCommand);
-        assertFalse(isTaskShown(task));
+        runCommandThenCheckForTasks(undoCommand, new Task[0], new Task[] { task });
 
         assertFalse(TodoList.getInstance().getTasks().contains(task));
     }
@@ -35,19 +33,15 @@ public class UndoCommandTest extends ToLuistGuiTest {
         String taskDescription = "build a rocket";
         String addCommand = "add " + taskDescription;
         Task task = new Task(taskDescription);
-        commandBox.runCommand(addCommand);
-        assertTrue(isTaskShown(task));
+        runCommandThenCheckForTasks(addCommand, new Task[] { task }, new Task[0]);
 
         String taskDescription2 = "ride a unicorn";
         String addCommand2 = "add " + taskDescription2;
         Task task2 = new Task(taskDescription2);
-        commandBox.runCommand(addCommand2);
-        assertTrue(isTaskShown(task2));
+        runCommandThenCheckForTasks(addCommand2, new Task[] { task2 }, new Task[0]);
 
         String undoCommand = "undo 2";
-        commandBox.runCommand(undoCommand);
-        assertFalse(isTaskShown(task));
-        assertFalse(isTaskShown(task2));
+        runCommandThenCheckForTasks(undoCommand, new Task[0], new Task[] { task, task2 });
 
         assertFalse(TodoList.getInstance().getTasks().contains(task));
         assertFalse(TodoList.getInstance().getTasks().contains(task2));

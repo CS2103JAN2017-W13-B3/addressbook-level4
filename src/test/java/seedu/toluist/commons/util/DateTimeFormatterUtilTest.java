@@ -1,4 +1,3 @@
-//@@author A0131125Y
 package seedu.toluist.commons.util;
 
 import static junit.framework.TestCase.assertEquals;

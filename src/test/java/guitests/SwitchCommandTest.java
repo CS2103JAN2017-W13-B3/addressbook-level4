@@ -39,11 +39,8 @@ public class SwitchCommandTest extends ToLuistGuiTest {
         todoList.add(eventIn6Days);
         todoList.save();
         commandBox.runCommand("list");
-        commandBox.runCommand("switch i");
-
-        // Check that some default tasks are there
-        assertTasksShown(true, floatingTask, eventIn6Days);
-        assertFalse(isTaskShown(taskWithDeadline));
+        runCommandThenCheckForTasks("switch i", new Task[] { floatingTask, eventIn6Days },
+                new Task[] { taskWithDeadline });
     }
 
     @Test
