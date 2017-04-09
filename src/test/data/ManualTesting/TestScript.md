@@ -3,9 +3,9 @@
 ## Loading ToLuist with sample data
 
 Ensure that you have the file `SampleData.json` inside the `/src/test/data/ManualTesting` folder.
-Put `SampleData.json` in the same directory as `toluist.jar`
+Put `SampleData.json` in the same directory as `[W13-B3][ToLuist].jar`
 Create a copy of `SampleData.json` and name it `SampleData-copy.json`.
-Start `toluist.jar` by double clicking it.
+Start `[W13-B3][ToLuist].jar` by double clicking it.
 
 
 Input: `load SampleData.json`  
