@@ -25,7 +25,7 @@ public class AddTagController extends TagController {
     private static final String MESSAGE_TEMPLATE_RESULT = "%s%s successfully added.";
 
     private static final String HELP_DETAILS = "Adds a tag(s) to an existing task.";
-    private static final String HELP_FORMAT = "tag INDEX TAG(S)";
+    private static final String HELP_FORMAT = "tag INDEX TAG...";
     private static final String[] HELP_COMMENTS = { "Related commands: `untag`",
                                                     "All tags are one word long.",
                                                     "Each word entered after the index will be its own tag.", };

@@ -67,7 +67,8 @@ public abstract class TagController extends Controller {
 
     protected boolean isInvalidFormat(Map<String, String> tokens) {
         String index = tokens.get(PARAMETER_INDEX);
-        if (index.equals("") || tokens.get(PARAMETER_KEYWORDS).equals("")) {
+        if (index.equals(StringUtil.EMPTY_STRING)
+            || tokens.get(PARAMETER_KEYWORDS).equals(StringUtil.EMPTY_STRING)) {
             return true;
         }
         if (!StringUtils.isNumeric(index)) {
@@ -98,8 +99,8 @@ public abstract class TagController extends Controller {
             tokens.put(PARAMETER_INDEX, listOfParameters[SECTION_INDEX]);
             tokens.put(PARAMETER_KEYWORDS, listOfParameters[SECTION_KEYWORDS]);
         } catch (Exception e) {
-            tokens.put(PARAMETER_INDEX, "");
-            tokens.put(PARAMETER_KEYWORDS, "");
+            tokens.put(PARAMETER_INDEX, StringUtil.EMPTY_STRING);
+            tokens.put(PARAMETER_KEYWORDS, StringUtil.EMPTY_STRING);
         }
 
         return tokens;

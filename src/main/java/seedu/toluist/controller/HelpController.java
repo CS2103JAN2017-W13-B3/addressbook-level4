@@ -28,8 +28,8 @@ public class HelpController extends Controller {
     private static final String COMMAND_WORD = "help";
     private static final String COMMAND_REGEX = "(?iu)^\\s*help.*";
 
-    private static final String HELP_DETAILS = "Marks a task to be complete or incomplete.";
-    private static final String HELP_FORMAT = "mark [complete/incomplete] INDEX(ES)";
+    private static final String HELP_DETAILS = "Viewing help.";
+    private static final String HELP_FORMAT = "help [COMMAND]";
     private static final String[] HELP_EXAMPLES = { "`help`\nShows general help for all commands.",
                                                     "`help add`\nShows detailed help for `add` command." };
 

@@ -31,11 +31,12 @@ public class SwitchController extends Controller {
     private SwitchConfig switchConfig = SwitchConfig.getDefaultSwitchConfig();
 
     //@@author A0162011A
-    private static final String HELP_DETAILS = "Changes the displayed task list.";
+    private static final String HELP_DETAILS = "Switch to a different tab.";
     private static final String HELP_FORMAT = "switch TABIDENTIFIER";
     private static final String[] HELP_COMMENTS = { "`TABIDENTIFIER` corresponds to the underlined letter "
                                                         + "at the top of the program.",
-                                                    "Allowed values are `I`, `T`, `N`, `C`, `A`.",
+                                                    "Allowed values are `incomplete`, `today`, `next7days`,"
+                                                            + " completed, all",
                                                     "Alternatively, you can call them by their order: "
                                                         + "`1`, `2`, `3`, `4`, `5`",
                                                     "Alternatively, you can use the shortcut command: "
