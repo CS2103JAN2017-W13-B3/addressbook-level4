@@ -23,10 +23,10 @@ Result: `add` & `alias` are suggested as command words
 
 ## Command parameter suggestions
 
-Input: Type `add ` without entering <br>
+Input: Type `add /` without entering <br>
 Result: Check that the different parameters for add command are suggested
 
-Input: Type `add task /by tomorrow `<br>
+Input: Type `add task /by tomorrow /`<br>
 Result: Check that the parameters `/from` and `/to` are not suggested as they conflict with the parameter `/by`
 
 ## Command parameter option suggestions
@@ -199,7 +199,7 @@ Result:
 Input: Type `c` without entering<br>
 Result: Check that `add` and `clear` are suggested
 
-Input: Type `c a task ` without entering<br>
+Input: Type `c a task /` without entering<br>
 Result: Check the parameters for add command are suggested
 
 ### 2. Update an alias
