@@ -178,7 +178,7 @@ Each `UiView` has a mini lifecycle. `viewDidLoad` is run after `render` is calle
  
 In essence, `UiStore` acts as a **View Model** for the `Ui`. The reason why `UiStore` is separate from the 
 `Model` is because a lot of the states used in `UiStore` are ui-specific states. Keeping them separate 
-allows having a clear separation of concern between ui states and domain states.
+allows a clear separation of concern between ui states and domain states.
 
 Since `UiStore` acts as a single universal state container for `Ui`, it also implements the **Singleton** 
 pattern, to restrict the instantiation of the class to one object.
