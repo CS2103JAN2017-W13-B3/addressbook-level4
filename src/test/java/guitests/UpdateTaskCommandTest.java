@@ -168,8 +168,8 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
 
         // update all parameters for event (and test tags, startdate and enddate not in order)
         String newerTaskDescription = "attend CS2103T tutorial";
-        LocalDateTime newerStartDate = DateTimeUtil.parseDateString("15 Mar 2017, 12pm");
-        LocalDateTime newerEndDate = DateTimeUtil.parseDateString("15 Mar 2017, 1pm");
+        LocalDateTime newerStartDate = DateTimeUtil.parseDateString("19 Mar 2017, 12pm");
+        LocalDateTime newerEndDate = DateTimeUtil.parseDateString("19 Mar 2017, 1pm");
         command = UPDATE + eventIndex + " " + newerTaskDescription +
                   PRIORITY + "low" + TO + newerEndDate + TAGS + "tag1" + FROM + newerStartDate;
         commandBox.runCommand(command);
@@ -179,6 +179,28 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         assertFalse(isTaskShown(task2));
         assertFalse(isTaskShown(task3));
         assertTrue(isTaskShown(task4));
+
+        // update event /from
+        command = UPDATE + eventIndex + FROM + newStartDate;
+        commandBox.runCommand(command);
+        assertResultMessage("Start date must be before end date.");
+        command = UPDATE + eventIndex + FROM + startDate;
+        commandBox.runCommand(command);
+        Task task5 = new Task(newerTaskDescription, startDate, newerEndDate);
+        task5.replaceTags(new ArrayList<>(Arrays.asList(tag1)));
+        assertFalse(isTaskShown(task4));
+        assertTrue(isTaskShown(task5));
+
+        // update event /to
+        LocalDateTime newestEndDate = DateTimeUtil.parseDateString("14 Mar 2017, 1pm");
+        command = UPDATE + eventIndex + TO + newestEndDate;
+        commandBox.runCommand(command);
+        assertResultMessage("Start date must be before end date.");
+        command = UPDATE + eventIndex + " " + taskDescription + TO + endDate;
+        commandBox.runCommand(command);
+        task.replaceTags(new ArrayList<>(Arrays.asList(tag1)));
+        assertTrue(isTaskShown(task));
+        assertFalse(isTaskShown(task5));
     }
 
     @Test
@@ -251,12 +273,31 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         Task task = new Task(taskDescription);
         assertTrue(isTaskShown(task));
 
-        // Event
+        // /from /to -> Successful update to event
         command = UPDATE + eventIndex + FROM + startDate + TO + endDate;
         commandBox.runCommand(command);
         Task task2 = new Task(taskDescription, startDate, endDate);
         assertFalse(isTaskShown(task));
         assertTrue(isTaskShown(task2));
+
+        // Update back to floating task
+        command = UPDATE + eventIndex + FLOATING;
+        commandBox.runCommand(command);
+        assertTrue(isTaskShown(task));
+        assertFalse(isTaskShown(task2));
+
+        // Event /from -> Fail to update
+        command = UPDATE + eventIndex + FROM + startDate;
+        commandBox.runCommand(command);
+        assertResultMessage("Task cannot contain only start date.");
+        assertTrue(isTaskShown(task));
+
+        // Event /to -> Successful update to deadline task
+        command = UPDATE + eventIndex + TO + endDate;
+        commandBox.runCommand(command);
+        Task task3 = new Task(taskDescription, endDate);
+        assertFalse(isTaskShown(task));
+        assertTrue(isTaskShown(task3));
     }
 
     @Test
@@ -303,6 +344,7 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
 
         String taskDescription = "attend CS2103T tutorial";
         LocalDateTime startDate = DateTimeUtil.parseDateString("15 Mar 2017, 12pm");
+        LocalDateTime startDate2 = DateTimeUtil.parseDateString("16 Mar 2017, 12pm");
         LocalDateTime endDate = DateTimeUtil.parseDateString("15 Mar 2017, 1pm");
         LocalDateTime endDate2 = DateTimeUtil.parseDateString("15 Mar 2017, 5pm");
         String command = ADD + taskDescription + BY + endDate2;
@@ -310,12 +352,42 @@ public class UpdateTaskCommandTest extends ToLuistGuiTest {
         Task task = new Task(taskDescription, endDate2);
         assertTrue(isTaskShown(task));
 
-        // Task with deadline to event
+        // /from /to -> Successful update to event
         command = UPDATE + eventIndex + FROM + startDate + TO + endDate;
         commandBox.runCommand(command);
         Task task2 = new Task(taskDescription, startDate, endDate);
         assertFalse(isTaskShown(task));
         assertTrue(isTaskShown(task2));
+
+        // Update back to deadline task
+        command = UPDATE + eventIndex + BY + endDate2;
+        commandBox.runCommand(command);
+        assertTrue(isTaskShown(task));
+        assertFalse(isTaskShown(task2));
+
+        // /from -> Successful update to event (provided startDate is before endDate)
+        command = UPDATE + eventIndex + FROM + startDate2;
+        commandBox.runCommand(command);
+        assertResultMessage("Start date must be before end date.");
+        assertTrue(isTaskShown(task));
+        command = UPDATE + eventIndex + FROM + startDate;
+        commandBox.runCommand(command);
+        Task task3 = new Task(taskDescription, startDate, endDate2);
+        assertFalse(isTaskShown(task));
+        assertTrue(isTaskShown(task3));
+
+        // Update back to deadline task
+        command = UPDATE + eventIndex + BY + endDate2;
+        commandBox.runCommand(command);
+        assertTrue(isTaskShown(task));
+        assertFalse(isTaskShown(task3));
+
+        // /to -> Successful update to deadline task
+        command = UPDATE + eventIndex + BY + endDate;
+        commandBox.runCommand(command);
+        Task task4 = new Task(taskDescription, endDate);
+        assertFalse(isTaskShown(task));
+        assertTrue(isTaskShown(task4));
     }
 
     @Test
