@@ -57,8 +57,8 @@ Integration** plugin and install it.
 6. Click `Finish`.
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process).
+  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish.
+      This is because Gradle downloads library files from servers during the project set up process.
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ### 2.3. Configuring Checkstyle
