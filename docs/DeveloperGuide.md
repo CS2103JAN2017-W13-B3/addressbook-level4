@@ -224,8 +224,8 @@ In effect, `Dispatcher` is implementing the **Facade** pattern, shielding the co
 
 **API** : [`Controller.java`](../src/main/java/seedu/toluist/controller/Controller.java)
 
-`Controller` has an `execute` method to execute the command passed by the dispatcher. The command execution
- can affect the `Model`, the `Storage` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the dispatcher. After every `execute` invocation, the `Controller` can optionally set new states in the `UiStore`, which subsequently trigger a Ui re-render.
+`Controller` has an `execute` method to execute the command passed by `Dispatcher`. The command execution
+ can affect the `Model`, the `Storage` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to `Dispatcher`. After every `execute` invocation, the `Controller` can optionally set new states in the `UiStore`, which subsequently trigger a UI re-render.
 
 Each command is represented by a different `Controller` class, which all extends from the abstract 
 `Controller` class. The `Controller` is implementing the **Command** pattern, where each `Controller` class 
