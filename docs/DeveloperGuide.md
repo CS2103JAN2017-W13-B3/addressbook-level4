@@ -31,7 +31,7 @@ We have organized the guide in a top-down manner so that, as a new developer, yo
 
 ### 2.1. Prerequisites
 
-Here are some tasks you should to complete before diving into the project.
+Here are some tasks you should complete before diving into the project.
 
 1. Install **JDK `1.8.0_60`**  or later<br>
 
