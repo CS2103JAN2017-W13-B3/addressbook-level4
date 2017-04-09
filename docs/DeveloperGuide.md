@@ -153,7 +153,7 @@ subscribers about this event. `MainApp`, which is a subscriber, will respond and
 Some of the key properties of a `UiView` are described below.
 
 #### Associated with a FXML
-Each UIView class is associated with a FXML file. For example, `TaskView` is associated with `TaskView.fxml` file. The corresponding FXML file will be loaded automatically when a new `UiView` instance is created.
+Each `UiView` class is associated with a FXML file. For example, `TaskView` is associated with `TaskView.fxml` file. The corresponding FXML file will be loaded automatically when a new `UiView` instance is created.
 
 #### Attachable to one single parent node
 You can attach a `UiView` to a parent node. At any point of time, a `UiView` should always have a maximum of one parent. The parent node must be an object of `Pane` class or any of its subclasses.
