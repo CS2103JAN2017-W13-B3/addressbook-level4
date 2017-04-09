@@ -78,9 +78,9 @@ public class Task implements Comparable<Task>, Cloneable {
 
     //@@author A0127545A
     public Task(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        this.setDescription(description.trim());
-        this.setStartDateTime(startDateTime);
-        this.setEndDateTime(endDateTime);
+        this.description = description.trim();
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         validate();
     }
 
@@ -161,27 +161,6 @@ public class Task implements Comparable<Task>, Cloneable {
         } else {
             completionDateTime = null;
         }
-    }
-
-    /**
-     * Set a deadline for a task
-     * @param deadLine a LocalDateTime object
-     */
-    public void setDeadLine(LocalDateTime deadLine) {
-        setStartDateTime(null);
-        setEndDateTime(deadLine);
-    }
-
-    /**
-     * Set a from and to date for an event
-     * from should be before to
-     * @param from a LocalDateTime object
-     * @param to a LocalDateTime object
-     */
-    public void setFromTo(LocalDateTime from, LocalDateTime to) {
-        assert DateTimeUtil.isBeforeOrEqual(startDateTime, endDateTime);
-        setStartDateTime(from);
-        setEndDateTime(to);
     }
 
     //@@author A0162011A
@@ -335,16 +314,24 @@ public class Task implements Comparable<Task>, Cloneable {
         return endDateTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
+    public void setToFloatingTask() {
+        this.startDateTime = null;
+        this.endDateTime = null;
+    }
+
+    public void setToDeadlineTask(LocalDateTime endDateTime) {
+        this.startDateTime = null;
+        this.endDateTime = endDateTime;
+    }
+
+    public void setToEvent(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        validate();
     }
 
     //@@author A0131125Y
@@ -457,12 +444,12 @@ public class Task implements Comparable<Task>, Cloneable {
     public void updateToNextRecurringTask() {
         assert isRecurring();
         if (isTaskWithDeadline()) {
-            setStartDateTime(getNextRecurringDateTime(startDateTime));
-            setEndDateTime(getNextRecurringDateTime(endDateTime));
+            startDateTime = getNextRecurringDateTime(startDateTime);
+            endDateTime = getNextRecurringDateTime(endDateTime);
         } else if (isEvent()) {
             long days = ChronoUnit.DAYS.between(endDateTime, getNextRecurringDateTime(endDateTime));
-            setStartDateTime(startDateTime.plusDays(days));
-            setEndDateTime(endDateTime.plusDays(days));
+            startDateTime = startDateTime.plusDays(days);
+            endDateTime = endDateTime.plusDays(days);
         }
         setCompleted(false);
     }

@@ -219,20 +219,15 @@ public class UpdateTaskController extends Controller {
     }
 
     private Task updateTaskDates(Task task, boolean isFloating,
-            LocalDateTime eventStartDateTime, LocalDateTime eventEndDateTime, LocalDateTime taskDeadline) {
+            LocalDateTime eventStartDateTime, LocalDateTime eventEndDateTime, LocalDateTime taskDeadline)
+            throws IllegalArgumentException {
         if (isFloating) {
-            task.setStartDateTime(null);
-            task.setEndDateTime(null);
+            task.setToFloatingTask();
         } else if (taskDeadline != null) {
-            task.setStartDateTime(null);
-            task.setEndDateTime(taskDeadline);
-        } else {
-            if (eventStartDateTime != null) {
-                task.setStartDateTime(eventStartDateTime);
-            }
-            if (eventEndDateTime != null) {
-                task.setEndDateTime(eventEndDateTime);
-            }
+            task.setToDeadlineTask(taskDeadline);
+        } else if (eventStartDateTime != null || eventEndDateTime != null) {
+            task.setToEvent(eventStartDateTime == null ? task.getStartDateTime() : eventStartDateTime,
+                            eventEndDateTime == null ? task.getEndDateTime() : eventEndDateTime);
         }
         return task;
     }
