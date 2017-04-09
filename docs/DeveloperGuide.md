@@ -241,6 +241,24 @@ different purposes.
 Again, **Open Closed Principle** is applied here, where a new `Controller` can be added easily while the 
 implementation for getting suggested keyword inside `CommandDispatcher` can remain unchanged.
 
+#### 3.4.3 Controller common classes
+
+Classes used by multiple components in the controllers are in the `seedu.toluist.controller.commons` package.<br>
+
+Controllers will execute the command by separating the command word and the index(es) (if it exist) from the rest of the description.
+
+##### 3.4.3.1 IndexParser
+
+The index(es) is/are passed through `IndexParser` class to obtain a list of indexes, so that the command action can be applied to the task with these indexes.
+
+E.g. For the command `delete - 3, 5, 7-9, 10 -`, the indexes string `- 3, 5, 7-9, 10 -` is passed into the IndexParser, and the controller specifies that there are at most 11 tasks. IndexParser will then return a list of indexes `1, 2, 3, 5, 7, 8, 9, 10, 11` so that the `delete` action can be applied to each of these tasks that correspond to each index.
+
+##### 3.4.3.2 KeywordTokenizer
+
+The description is passed through `KeywordTokenizer` class to obtain a dictionary of parameter-value tokens, where each of the token is handled separatedly by the controller itself.
+
+E.g. For the command `update 1 buy milk /tags strong bones /by friday`, the description `buy milk /tags strong bones /by friday` is passed into the KeywordTokenizer, and the controller specifies that the default keyword for unmatched strings is `description`. KeywordTokenizer will then return a dictionary of tokens `tags -> strong bones`, `by -> friday` and `description -> buy milk`, where each token will be handled separately in the UpdateTaskController.
+
 ### 3.5. Model component
 
 **API** : [`TodoList.java`](../src/main/java/seedu/toluist/model/TodoList.java)
