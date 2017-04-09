@@ -295,7 +295,7 @@ Result:
 
 ### 7. Find keywords autocompletion
 
-Input: Type `find ` without entering the commands<br>
+Input: Type `find ` without entering the commands. Press <kbd>Space</kbd><br>
 Result: Check that the previous search keywords are suggested
 
 ## Add Tags to a Task
