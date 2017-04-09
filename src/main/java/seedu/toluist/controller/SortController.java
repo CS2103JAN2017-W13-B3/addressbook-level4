@@ -54,7 +54,7 @@ public class SortController extends Controller {
                                                     "`sort default`\nResets the task list to the default ordering." };
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass().toString() + " will handle command");
+        logger.info(getClass().toString() + StringUtil.HANDLE_COMMAND);
 
         String keywords = tokens.get(PARAMETER_CATEGORY);
         if (keywords.equals(StringUtil.EMPTY_STRING)) {

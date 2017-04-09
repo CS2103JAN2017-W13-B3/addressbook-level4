@@ -52,7 +52,7 @@ public class HelpController extends Controller {
     private ControllerLibrary controllerLibrary = new ControllerLibrary();
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass().getName() + " will handle command");
+        logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
 
         Optional<String> commandWord = tokens.keySet().stream()
                 .filter(key -> !key.equals(Controller.DEFAULT_DESCRIPTION_KEYWORD))

@@ -28,7 +28,7 @@ public class ClearController extends Controller {
                                                     "The `undo` command can undo this action." };
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass().getName() + " will handle command");
+        logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
 
         TodoList todoList = TodoList.getInstance();
         UiStore uiStore = UiStore.getInstance();

@@ -23,7 +23,7 @@ public class NavigateHistoryController extends Controller {
     private CommandHistoryList commandHistory;
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass().getName() + " will handle command");
+        logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
 
         String direction = tokens.get(PARAMETER_DIRECTION);
         UiStore uiStore = UiStore.getInstance();

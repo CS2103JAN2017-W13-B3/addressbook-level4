@@ -23,11 +23,14 @@ public class StringUtil {
     public static final String QUOTE_DELIMITER = "\", \"";
     public static final String COMMA_DELIMITER = ", ";
 
+    public static final String WORD_EVENT = "event";
     public static final String WORD_TASK = "task";
     public static final String WORD_TAG = "tag";
     public static final String WORD_CHANGE = "change";
     public static final String WORD_WAS = "was";
     public static final String WORD_WERE = "were";
+
+    public static final String HANDLE_COMMAND = StringUtil.HANDLE_COMMAND;
 
     public static String capitalize(String word) {
         return Character.toUpperCase(word.charAt(0)) + word.substring(1);

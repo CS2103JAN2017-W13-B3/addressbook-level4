@@ -35,7 +35,7 @@ public class HistoryController extends Controller {
     }
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass().getName() + " will handle command");
+        logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
         UiStore uiStore = UiStore.getInstance();
         ArrayList<String> commandHistory = commandHistoryList.getCommandHistory();
         String result = String.join("\n", commandHistory);

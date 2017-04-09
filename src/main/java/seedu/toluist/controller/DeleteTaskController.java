@@ -44,7 +44,7 @@ public class DeleteTaskController extends Controller {
     private static final Logger logger = LogsCenter.getLogger(DeleteTaskController.class);
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException  {
-        logger.info(getClass().getName() + " will handle command");
+        logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
 
         TodoList todoList = TodoList.getInstance();
         UiStore uiStore = UiStore.getInstance();
@@ -78,12 +78,12 @@ public class DeleteTaskController extends Controller {
     }
 
     private CommandResult delete(TodoList todoList, List<Task> tasks) {
-        List<String> messages = tasks.
-                                stream().
-                                map(task -> delete(todoList, task).
-                                        getFeedbackToUser()).
-                                collect(Collectors.toList());
-        return new CommandResult(String.join("\n", messages));
+        List<String> messages = tasks
+                                .stream()
+                                .map(task -> delete(todoList, task)
+                                        .getFeedbackToUser())
+                                .collect(Collectors.toList());
+        return new CommandResult(String.join(StringUtil.NEW_LINE, messages));
     }
 
     private CommandResult delete(TodoList todoList, Task task) {
@@ -92,7 +92,9 @@ public class DeleteTaskController extends Controller {
         } else {
             todoList.remove(task);
         }
-        String taskType = task.isEvent() ? "Event" : "Task";
+        String taskType = task.isEvent()
+                ? StringUtil.capitalize(StringUtil.WORD_EVENT)
+                : StringUtil.capitalize(StringUtil.WORD_TASK);
         return new CommandResult(String.format(MESSAGE_RESULT_DELETE_TASK, taskType, task.getDescription()));
     }
 

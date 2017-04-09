@@ -77,7 +77,7 @@ public class UpdateTaskController extends Controller {
     private static final Logger logger = LogsCenter.getLogger(UpdateTaskController.class);
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass().getName() + " will handle command");
+        logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
 
         CommandResult commandResult;
 
