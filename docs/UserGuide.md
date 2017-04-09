@@ -107,10 +107,24 @@ located.
 Type out these command in the command box and press <kbd>Enter</kbd> to execute it.
 
 1. Since you are new to the app, type in `help` to get some information on the commands ToLuist supports.
+
+   <img src="images/Tryout1.png" width="400"/><br>
+    **Figure 2.4a**: Looking at the help display.
+    
 2. Try out some example commands:
    * **`add`**` Try Out Todo List` :
      adds a task named `Try Out Todo List` to the todo list.
+     
+     
+   <img src="images/Tryout2.png" width="400"/><br>
+    **Figure 2.4b**: Adding a new task.
+    
    * **`delete`**` 1` : deletes the 1st task shown in the current list.
+   
+   
+   <img src="images/Tryout3.png" width="400"/><br>
+    **Figure 2.4c**: Deleting the first task.
+    
    * **`exit`** : exits the app.<br>
 3. Refer to the [Features](#3-features) section below for details of each command.<br>
 
@@ -179,6 +193,11 @@ cycle through the list of suggestions, and press <kbd>Enter</kbd> to select one 
 When using ToLuist, you may want to switch between different tabs to zoom in on the tasks most important to
  you.<br>
 `switch` allows you to view a different subset of the currently displayed tasks.<br>
+The different tabs are shown at the top of ToLuist, under the App Title.
+
+   <img src="images/Tabs.png" width="600"><br>
+   **Figure 3.3**: Tabs in ToLuist.
+
 Format: `switch TABIDENTIFIER`
 
 > * If a number is given for tab identifier, that will be the number of the tab from the left which is selected.
