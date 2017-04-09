@@ -308,7 +308,7 @@ Result: The task at index 1 will have the tag `newTag` added.
 ### 2. Add Multiple Tags
 
 Input: `tag 2 newTag1 newTag2`.<br>
-Result: The task at index 1 will have the tags `newTag1` and `newTag2` added.
+Result: The task at index 2 will have the tags `newTag1` and `newTag2` added.
 
 ## Remove Tags from a Task
 
