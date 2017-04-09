@@ -41,8 +41,8 @@ Here are some tasks you should complete before diving into the project.
 3. Install **e(fx)clipse** plugin for Eclipse. 
 (Proceed from step 2 
 onwards on [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. Visit Eclipse Marketplace, search for and install **Buildship Gradle 
-Integration** plugin.
+4. Visit Eclipse Marketplace in Eclipse, search for **Buildship Gradle 
+Integration** plugin and install it.
 5. Also from Eclipse Marketplace, install **Checkstyle Plug-in** plugin.
 
 
