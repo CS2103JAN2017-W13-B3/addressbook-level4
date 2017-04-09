@@ -31,6 +31,8 @@ public class CommandDispatcher extends Dispatcher {
     private static final Logger logger = LogsCenter.getLogger(CommandDispatcher.class);
     private static final int SUGGESTION_LIMIT = 10;
     private static final int KEYWORD_CHECK_SIZE = 2;
+    private static final String LOG_COMMAND = "De-aliased command to be dispatched: %s original command %s";
+    private static final String LOG_SUGGESTION = "Suggestions for command %s %s";
 
     //@@author A0162011A
     /**
@@ -53,9 +55,8 @@ public class CommandDispatcher extends Dispatcher {
 
     public void dispatch(String command) {
         String processedCommand = getDealiasedCommand(command).trim();
-        logger.info("De-aliased command to be dispatched: " + processedCommand + " original command " + command);
+        logger.info(String.format(LOG_COMMAND, processedCommand, command));
         Controller controller = getBestFitController(processedCommand);
-        logger.info("Controller class to be executed: " + controller.getClass());
         handleHistoryController(controller);
         handleNavigateHistoryController(controller);
         execute(processedCommand, controller);
@@ -129,7 +130,7 @@ public class CommandDispatcher extends Dispatcher {
                                 .collect(Collectors.toCollection(TreeSet::new));
                     },
                     (set1, set2) -> set1); // This line will not be actually be run
-        logger.info("Suggestions for command " + command +  " " + suggestions.toString());
+        logger.info(String.format(LOG_SUGGESTION, command, suggestions.toString()));
         return suggestions;
     }
 
@@ -142,7 +143,9 @@ public class CommandDispatcher extends Dispatcher {
         SortedSet<String> suggestions = new TreeSet<>();
         String[] words = command.trim().split(StringUtil.WHITE_SPACE);
 
-        if (command.substring(command.length() - 1).equals(StringUtil.SINGLE_SPACE) || words.length > 1) {
+        int minimumWords = 1;
+        if (command.substring(command.length() - 1).equals(StringUtil.SINGLE_SPACE)
+                || words.length > minimumWords) {
             return suggestions;
         }
         String firstWordOfCommand = words[0];

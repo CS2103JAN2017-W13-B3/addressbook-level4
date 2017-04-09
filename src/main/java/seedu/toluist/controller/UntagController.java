@@ -37,7 +37,7 @@ public class UntagController extends TagController {
     private static final Logger logger = LogsCenter.getLogger(UntagController.class);
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass() + "will handle command");
+        logger.info(getClass() + StringUtil.HANDLE_COMMAND);
 
         super.execute(tokens);
     }

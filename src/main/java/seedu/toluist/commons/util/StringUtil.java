@@ -29,6 +29,8 @@ public class StringUtil {
     public static final String WORD_CHANGE = "change";
     public static final String WORD_WAS = "was";
     public static final String WORD_WERE = "were";
+    public static final String WORD_RESULT = "result";
+    public static final String WORD_COMMAND = "command";
 
     public static final String HANDLE_COMMAND = StringUtil.HANDLE_COMMAND;
 

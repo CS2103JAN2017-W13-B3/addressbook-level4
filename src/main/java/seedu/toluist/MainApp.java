@@ -55,6 +55,7 @@ public class MainApp extends Application {
         ui.init(dispatcher);
     }
 
+    //@@author
     private void initModel() {
         try {
             TodoList.getInstance().load();

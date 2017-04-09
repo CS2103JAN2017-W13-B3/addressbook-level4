@@ -38,9 +38,9 @@ public class HistoryController extends Controller {
         logger.info(getClass().getName() + StringUtil.HANDLE_COMMAND);
         UiStore uiStore = UiStore.getInstance();
         ArrayList<String> commandHistory = commandHistoryList.getCommandHistory();
-        String result = String.join("\n", commandHistory);
+        String result = String.join(StringUtil.NEW_LINE, commandHistory);
         uiStore.setCommandResult(new CommandResult(String.format(
-                MESSAGE_RESULT, result, StringUtil.nounWithCount("command", commandHistory.size()))));
+                MESSAGE_RESULT, result, StringUtil.nounWithCount(StringUtil.WORD_COMMAND, commandHistory.size()))));
     }
 
     public boolean matchesCommand(String command) {

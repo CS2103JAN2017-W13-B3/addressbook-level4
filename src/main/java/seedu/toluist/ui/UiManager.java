@@ -36,6 +36,7 @@ public class UiManager extends ComponentManager implements Ui {
         super();
     }
 
+    //@@author
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
@@ -54,6 +55,7 @@ public class UiManager extends ComponentManager implements Ui {
         }
     }
 
+    //@@author A0131125Y
     @Override
     public void stop() {
         // Save the last used gui settings

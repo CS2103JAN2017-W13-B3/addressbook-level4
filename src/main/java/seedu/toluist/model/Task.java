@@ -270,6 +270,8 @@ public class Task implements Comparable<Task>, Cloneable {
      * Compare by sortingOrder
      */
     public int compareTo(Task comparison) {
+        int smaller = -1;
+        int larger = 1;
         for (String currentSort : sortingOrder) {
             switch (currentSort) {
             case CATEGORY_PRIORITY :
@@ -279,17 +281,19 @@ public class Task implements Comparable<Task>, Cloneable {
                 break;
             case CATEGORY_STARTDATE :
                 if (!Objects.equals(startDateTime, comparison.startDateTime)) {
-                    return DateTimeUtil.isBeforeOrEqual(startDateTime, comparison.startDateTime) ? -1 : 1;
+                    return DateTimeUtil.isBeforeOrEqual(startDateTime, comparison.startDateTime)
+                            ? smaller : larger;
                 }
                 break;
             case CATEGORY_ENDDATE :
                 if (!Objects.equals(endDateTime, comparison.endDateTime)) {
-                    return DateTimeUtil.isBeforeOrEqual(endDateTime, comparison.endDateTime) ? -1 : 1;
+                    return DateTimeUtil.isBeforeOrEqual(endDateTime, comparison.endDateTime)
+                            ? smaller : larger;
                 }
                 break;
             case CATEGORY_OVERDUE :
                 if (isOverdue() != comparison.isOverdue()) {
-                    return isOverdue() ? -1 : 1;
+                    return isOverdue() ? smaller : larger;
                 }
                 break;
             case CATEGORY_DESCRIPTION :
@@ -298,7 +302,7 @@ public class Task implements Comparable<Task>, Cloneable {
                 }
             }
         }
-        return -1;
+        return smaller;
     }
 
     //@@author A0127545A

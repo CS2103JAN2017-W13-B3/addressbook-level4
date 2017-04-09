@@ -83,7 +83,8 @@ public class CommandBox extends UiView {
         store.incrementSuggestedCommandIndex();
 
         List<String> suggestedCommands = store.getObservableSuggestedCommands();
-        if (suggestedCommands.size() == 1) {
+        int singleSuggestionSize = 1;
+        if (suggestedCommands.size() == singleSuggestionSize) {
             setCommandTextField(
                     StringUtil.replaceLastComponent(commandTextField.getText(), suggestedCommands.get(0)));
         }

@@ -58,7 +58,7 @@ public class FindController extends Controller {
     private static final Logger logger = LogsCenter.getLogger(FindController.class);
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass() + "will handle command");
+        logger.info(getClass() + StringUtil.HANDLE_COMMAND);
         UiStore uiStore = UiStore.getInstance();
 
         // initialize keywords and variables for searching
@@ -84,7 +84,7 @@ public class FindController extends Controller {
         UiStore uiStore = UiStore.getInstance();
         if (keywordList[0].equals(PARAMETER_NULL)) {
             return new CommandResult(String.format(MESSAGE_RESULT_TEMPLATE_LIST,
-                StringUtil.nounWithCount("task", foundCount))
+                StringUtil.nounWithCount(StringUtil.WORD_TASK, foundCount))
                 + String.format(MESSAGE_RESULT_TEMPLATE_TAB, uiStore.getShownTasks().size()));
         }
 
@@ -92,7 +92,7 @@ public class FindController extends Controller {
 
         String keywords = String.join(MESSAGE_STRING_JOINING, keywordList);
         return new CommandResult(String.format(MESSAGE_RESULT_TEMPLATE_FIND,
-                keywords, searchParameters, StringUtil.nounWithCount("result", foundCount))
+                keywords, searchParameters, StringUtil.nounWithCount(StringUtil.WORD_RESULT, foundCount))
                 + String.format(MESSAGE_RESULT_TEMPLATE_TAB, uiStore.getShownTasks().size()));
     }
 

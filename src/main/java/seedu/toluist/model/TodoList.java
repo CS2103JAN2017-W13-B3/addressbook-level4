@@ -23,7 +23,7 @@ public class TodoList {
     private TodoListStorage storage = new JsonStorage();
 
     public boolean equals(Object other) {
-        return other == this // short circuit if same objectå
+        return other == this // short circuit if same object
                 || (other instanceof TodoList // instanceof handles nulls
                 && allTasks.equals(((TodoList) other).getTasks()));
     }

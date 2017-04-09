@@ -30,6 +30,7 @@ public class SortController extends Controller {
     private static final String COMMAND_TEMPLATE = "(?iu)^\\s*sort.*";
     private static final String COMMAND_WORD = "sort";
     private static final String WORD_BY = "by";
+    private static final int MINIMUM_KEYWORD_SIZE = 1;
 
 
     private static final String[] KEYWORD_CATEGORIES = {
@@ -62,7 +63,7 @@ public class SortController extends Controller {
                     Messages.MESSAGE_INVALID_COMMAND_FORMAT, COMMAND_WORD));
         }
         ArrayList<String> keywordList = new ArrayList<String>(Arrays.asList(StringUtil.convertToArray(keywords)));
-        if (keywordList.contains(Task.CATEGORY_DEFAULT) && keywordList.size() > 1) {
+        if (keywordList.contains(Task.CATEGORY_DEFAULT) && keywordList.size() > MINIMUM_KEYWORD_SIZE) {
             throw new InvalidCommandException(MESSAGE_MULTIPLE_KEYWORDS_AND_DEFAULT);
         }
         ArrayList<String> invalidKeywords = new ArrayList<String>();

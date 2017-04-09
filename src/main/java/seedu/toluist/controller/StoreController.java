@@ -49,7 +49,7 @@ public class StoreController extends Controller {
 
     //@@author A0131125Y
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass() + "will handle command");
+        logger.info(getClass() + StringUtil.HANDLE_COMMAND);
         String path = tokens.get(PARAMETER_STORE_DIRECTORY);
 
         validateNoStoragePath(path);

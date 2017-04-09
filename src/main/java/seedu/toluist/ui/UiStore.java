@@ -193,8 +193,9 @@ public class UiStore {
     public ArrayList<Task> getShownTasks(List<Integer> indexes) {
         List<Task> shownTasks = getShownTasks();
         ArrayList<Task> tasks = new ArrayList<>();
+        int minimumIndex = 1;
         for (int index : indexes) {
-            if (index < 1 || index > shownTasks.size()) {
+            if (index < minimumIndex || index > shownTasks.size()) {
                 continue;
             }
             tasks.add(shownTasks.get(index - 1));

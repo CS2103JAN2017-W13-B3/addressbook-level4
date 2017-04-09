@@ -40,7 +40,7 @@ public class UndoController extends Controller {
     private static final Logger logger = LogsCenter.getLogger(UndoController.class);
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass() + "will handle command");
+        logger.info(getClass() + StringUtil.HANDLE_COMMAND);
 
         String undoTimesToken = tokens.get(PARAMETER_UNDO_TIMES);
         int undoTimes = undoTimesToken != null ? Integer.parseInt(undoTimesToken) : SINGLE_UNDO;

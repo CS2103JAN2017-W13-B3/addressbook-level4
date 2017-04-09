@@ -42,7 +42,7 @@ public class RedoController extends Controller {
     private static final Logger logger = LogsCenter.getLogger(RedoController.class);
 
     public void execute(Map<String, String> tokens) throws InvalidCommandException {
-        logger.info(getClass() + "will handle command");
+        logger.info(getClass() + StringUtil.HANDLE_COMMAND);
         String redoTimesToken = tokens.get(PARAMETER_REDO_TIMES);
         int redoTimes = redoTimesToken != null ? Integer.parseInt(redoTimesToken) : SINGLE_REDO;
         redo(redoTimes);
