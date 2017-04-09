@@ -28,6 +28,8 @@ import seedu.toluist.ui.commons.CommandResult;
 public class MarkController extends Controller {
     private static final String MESSAGE_RESULT_COMPLETED_SUCCESS = "%s %s marked completed";
     private static final String MESSAGE_RESULT_INCOMPLETE_SUCCESS = "%s %s marked incomplete";
+    private static final String MESSAGE_ERROR_COMPLETE_INCOMPLETE = "Cannot mark task(s) as both complete "
+            + "and incomplete";
     private static final String COMMAND_TEMPLATE = "(?iu)^\\s*mark(\\s+(complete|incomplete))?"
             + "(\\s+(?<index>.*))?(\\s+(complete|incomplete))?.*";
     private static final String COMMAND_WORD = "mark";
@@ -58,11 +60,21 @@ public class MarkController extends Controller {
         logger.info(getClass().toString() + " will handle command");
         String indexToken = tokens.get(PARAMETER_INDEX);
         UiStore uiStore = UiStore.getInstance();
-        boolean isMarkComplete = !tokens.keySet().contains(PARAMETER_MARK_INCOMPLETE);
+        boolean isMarkComplete = validateCompleteIncomplete(tokens);
         List<Integer> indexes = IndexParser.splitStringToIndexes(indexToken, uiStore.getShownTasks().size());
 
         validateInvalidIndexes(indexes);
         mark(isMarkComplete, indexes);
+    }
+
+    private boolean validateCompleteIncomplete(Map<String, String> tokens) throws InvalidCommandException {
+        boolean isMarkComplete = !tokens.keySet().contains(PARAMETER_MARK_INCOMPLETE)
+                || tokens.keySet().contains(PARAMETER_MARK_COMPLETE);
+        boolean isMarkIncomplete = tokens.keySet().contains(PARAMETER_MARK_INCOMPLETE);
+        if (isMarkComplete && isMarkIncomplete) {
+            throw new InvalidCommandException(MESSAGE_ERROR_COMPLETE_INCOMPLETE);
+        }
+        return isMarkComplete;
     }
 
     private void validateInvalidIndexes(List<Integer> indexes) throws InvalidCommandException {

@@ -75,6 +75,12 @@ public class MarkCommandTest extends ToLuistGuiTest {
             () -> assertTaskComplete(false, new TypicalTestTodoLists().getTypicalTasks()));
     }
 
+    @Test
+    public void markCompleteIncomplete() {
+        runCommandThenCheckForResultMessage("mark complete 1 incomplete",
+                "Cannot mark task(s) as both complete and incomplete");
+    }
+
     /**
      * Check that all the tasks are completed or incomplete
      * @param isCompleted whether the tasks should be check for being completed or incomplete
