@@ -213,9 +213,9 @@ The reactive approach is borrowed from modern Javascript front-end frameworks su
 
 **API** : [`Dispatcher.java`](../src/main/java/seedu/toluist/dispatcher/Dispatcher.java)
 
-The `Dispatcher` acts like a router in a traditional Web MVC architecture. On receiving new input from the UI, the `Dispatcher` decides which `Controller` is the best candidate to handle the input, then instantiates and asks the `Controller` object to execute the command.
+The `Dispatcher` acts like a router in a traditional Web MVC architecture. On receiving new input from `UI`, `Dispatcher` decides which `Controller` is the best candidate to handle the input, then instantiates and asks the `Controller` object to execute the command.
  
-In effect, `Dispatcher` is implementing the **Facade** pattern, shielding the command logic from the Ui.
+In effect, `Dispatcher` is implementing the **Facade** pattern, shielding the command logic from `UI`.
 
 ### 3.5. Controller component
 
