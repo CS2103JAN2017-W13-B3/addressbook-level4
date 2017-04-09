@@ -18,34 +18,34 @@ TODAY (0/51)`, `NEXT 7 DAYS (0/51)`, `COMPLETED (11/51)`, `ALL (51/51)` from lef
 
 ## Command word suggestions
 
-Input: Type `a` without entering
+Input: Type `a` without entering<br>
 Result: `add` & `alias` are suggested as command words
 
 ## Command parameter suggestions
 
-Input: Type `add ` without entering 
+Input: Type `add ` without entering <br>
 Result: Check that the different parameters for add command are suggested
 
-Input: Type `add task /by tomorrow `
+Input: Type `add task /by tomorrow `<br>
 Result: Check that the parameters `/from` and `/to` are not suggested as they conflict with the parameter `/by`
 
 ## Command parameter option suggestions
 
-Input: Type `add a task /priority ` without entering
+Input: Type `add a task /priority ` without entering<br>
 Result: Check that `high` & `low` are suggested
 
 ## Add
 
 ### 1. Add Floating Task
-Input: `add floating task`
+Input: `add floating task`<br>
 Result: Floating task is added.
 
 ### 2. Add recurring task with deadline
-Input: `add recurring deadline /by 14 april /repeat weekly /repeatuntil 22 april`
+Input: `add recurring deadline /by 14 april /repeat weekly /repeatuntil 22 april`<br>
 Result: Deadline task that repeats every friday until 22 April 2017 is added.
 
 ### 3. Add recurring event
-Input: `add recurring event /repeat monthly /from today 5pm /to today 9pm`
+Input: `add recurring event /repeat monthly /from today 5pm /to today 9pm`<br>
 Result: Recurring event that repeats every today's day of month from 5pm to 9pm indefinitely is added.
 
 ## Update
@@ -71,16 +71,16 @@ Input:
 
 Result: The first delete will delete the current task, and the next occurrence of this task will be added. The second delete will delete the current task permanently, since it reaches the end of repeat period.
 
-Input: `delete 4, 1-3`
+Input: `delete 4, 1-3`<br>
 Result: The first 4 tasks is deleted.
 
-Input: `delete - 2`
+Input: `delete - 2`<br>
 Result: The first 2 tasks is deleted.
 
-Input: `delete 34 -`
+Input: `delete 34 -`<br>
 Result: The task from index 34 onwards is deleted.
 
-Input: `delete -`
+Input: `delete -`<br>
 Result: All tasks are deleted. Note that there will still be some recurring tasks in the list since new occurrences of the tasks are created when the old ones are removed.
 
 ## Undo / Redo
@@ -93,41 +93,41 @@ Result:
 1. `www task` is added
 2. `zzz task` is added
 
-Input: `undo`
+Input: `undo`<br>
 Result: `zzz task` is removed
 
-Input: Press <kbd>Ctrl</kbd> + <kbd>Z</kbd>
+Input: Press <kbd>Ctrl</kbd> + <kbd>Z</kbd><br>
 Result: `www task` is removed
 
-Input: `redo`
+Input: `redo`<br>
 Result: `www task` is added back
 
-Input: Press <kbd>Ctrl</kbd> + <kbd>Y</kbd>
+Input: Press <kbd>Ctrl</kbd> + <kbd>Y</kbd><br>
 Result: `zzz task` is added back
 
-Input: `undo 2`
+Input: `undo 2`<br>
 Result: `www task` & `zzz task` are removed
 
-Input: `redo 2`
+Input: `redo 2`<br>
 Result: `www task` & `zzz task` are added back
 
 ## Switch
 
 ### 1. Switch using full tab name
 
-Input: `switch completed`
+Input: `switch completed`<br>
 Result: The tab is switched to *COMPLETED*. The task list now only shows completed tasks.
 
 ### 2. Switch using partial tab name
-Input: `switch incom`
+Input: `switch incom`<br>
 Result: The tab is switched to *INCOMPLETE*. The task list now only shows incomplete tasks.
 
 ### 3. Switch using tab index
-Input: `switch 5`
+Input: `switch 5`<br>
 Result: The tab is switched to *ALL*. The task list now shows all tasks
 
 ### 4. Switch using hotkey
-Input: Press <kbd>Ctrl</kbd> + <kbd>1</kbd>
+Input: Press <kbd>Ctrl</kbd> + <kbd>1</kbd><br>
 Result: The tab is switched to *INCOMPLETE*. The task list now only shows incomplete tasks.
 
 ## Mark tasks as completed
@@ -159,7 +159,7 @@ Result:
 
 ### 1. Mark single task as incomplete
 
-Input: `mark incomplete 12`
+Input: `mark incomplete 12`<br>
 Result: The task `www task` disappears from the current task list. The statistics on *INCOMPLETE* & *COMPLETED* tabs are updated.
 
 ### 2. Mark multiple tasks as incomplete
@@ -196,10 +196,10 @@ Result:
 2. Result displays show that `c` is set as an alias for `add`
 3. The task `zombie task` is added
 
-Input: Type `c` without entering
+Input: Type `c` without entering<br>
 Result: Check that `add` and `clear` are suggested
 
-Input: Type `c a task ` without entering
+Input: Type `c a task ` without entering<br>
 Result: Check the parameters for add command are suggested
 
 ### 2. Update an alias
@@ -216,7 +216,7 @@ Result:
 
 ## View aliases
 
-Input: `viewalias`
+Input: `viewalias`<br>
 Result: Result displays shows `c:clear`
 
 ## Unalias
@@ -233,17 +233,17 @@ Result:
 
 ### 1. Sort by a Category
 
-Input: `sort description`.
+Input: `sort description`.<br>
 Result: The tasks are re-ordered by description.
 
 ### 2. Sort by Multiple Categories
 
-Input: `sort priority enddate`.
+Input: `sort priority enddate`.<br>
 Result: The tasks are re-ordered first by priority, then by end date.
 
 ### 3. Sort by Default Sorting Order
 
-Input: `sort default`.
+Input: `sort default`.<br>
 
 Result: 
 1. The tasks are re-ordered to their default ordering.
@@ -261,17 +261,17 @@ Result: The tasks with `cs2103` in the name or tags are displayed.
 
 ### 2. Find Specifically by Tag
 
-Input: `find school /tag`.
+Input: `find school /tag`.<br>
 Result: The tasks with `school` in the tags are displayed.
 
 ### 3. Find Specifically by Description
 
-Input: `find buy /name`.
+Input: `find buy /name`.<br>
 Result: The tasks with `buy` in the description are displayed.
 
 ### 4. Find by Case Insensitive
 
-Input: `find EXAM`.
+Input: `find EXAM`.<br>
 
 Result: 
 1. The tasks with `EXAM` in the name or tags are displayed.
@@ -279,7 +279,7 @@ Result:
 
 ### 5. Find by Partial
 
-Input: `find cs`.
+Input: `find cs`.<br>
 
 Result: 
 1. The tasks with `cs` in the name or tags are displayed.
@@ -287,7 +287,7 @@ Result:
 
 ### 6. Find by Multiple Keywords
 
-Input: `find tutorial lab`.
+Input: `find tutorial lab`.<br>
 
 Result: 
 1. The tasks with `tutorial` or `lab` in the name or tags are displayed.
@@ -295,35 +295,35 @@ Result:
 
 ### 7. Find keywords autocompletion
 
-Input: Type `find ` without entering the commands
+Input: Type `find ` without entering the commands<br>
 Result: Check that the previous search keywords are suggested
 
 ## Add Tags to a Task
 
 ### 1. Add a Single Tag
 
-Input: `tag 1 newTag`.
+Input: `tag 1 newTag`.<br>
 Result: The task at index 1 will have the tag `newTag` added.
 
 ### 2. Add Multiple Tags
 
-Input: `tag 2 newTag1 newTag2`.
+Input: `tag 2 newTag1 newTag2`.<br>
 Result: The task at index 1 will have the tags `newTag1` and `newTag2` added.
 
 ## Remove Tags from a Task
 
 ### 1. Remove a Single Tag
 
-Input: `untag 2 newTag`.
+Input: `untag 2 newTag`.<br>
 Result: The task at index 2 will have the tag `newTag` removed.
 
 ### 2. Remove Multiple Tags
 
-Input: `untag 2 newTag1 newTag2`.
+Input: `untag 2 newTag1 newTag2`.<br>
 Result: The task at index 2 will have the tags `newTag1` and `newTag2` removed.
 
 ## Save Data to a Different Location
-Input: `save NewFile.json`.
+Input: `save NewFile.json`.<br>
 Result: Note the change in file location in the status bar.
 
 ## Exit ToLuist
@@ -337,7 +337,7 @@ Result:
 2. Note that the data is still there.
 
 ## Load Data From a Different Location
-Input: `load SampleData-copy.json`.
+Input: `load SampleData-copy.json`.<br>
 
 Result:
 1. The displayed data in ToLuist will change to the data in the new file.
@@ -347,11 +347,11 @@ Result:
 
 ### 1. Show General Help
 
-Input: `help`
+Input: `help`<br>
 Result: A help window appears, listing out all the commands available, together with the command description and format.
 
 ### 2. Show Detailed Help
 
-Input: `help add`
+Input: `help add`<br>
 Result: A help window appears, listing out the command description and format for `add`, together with comments for the command, as well as some examples.
 
