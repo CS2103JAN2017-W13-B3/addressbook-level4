@@ -8,7 +8,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/louislai.png" width="150"><br>
 Role: Architect <br>
 
-* Components in charge of: UI, Model, Storage
+* Components in charge of: UI, Architecture, Storage
 * Aspects/tools in charge of: Scheduling and tracking, CI, Code quality
 * Features implemented:
   - [Mark complete/incomplete single/multiple tasks](https://github.com/CS2103JAN2017-W13-B3/main/blob/master/docs/UserGuide.md#39-marking-a-task-as-complete-or-incomplete-mark)
@@ -38,7 +38,7 @@ Role: Architect <br>
 <img src="images/melvin-tan.png" width="150"><br>
 Role: Developer <br>
 
-* Components in charge of: Task, Event, Tokenizer
+* Components in charge of: Controller, Model, Tokenizer
 * Aspects/tools in charge of: Testing, Eclipse, Natty
 * Features implemented:
     - [Add and update for all types of tasks (including floating task, task with deadline, event, recurring task)](https://github.com/CS2103JAN2017-W13-B3/main/blob/master/docs/UserGuide.md#34-adding-a-task-add)
@@ -59,7 +59,7 @@ Role: Developer <br>
 <img src="images/rinder5.png" width="150"><br>
 Role: Developer <br>
 
-* Components in charge of: Tag, Search/Filter
+* Components in charge of: Controller, Model
 * Aspects/tools in charge of: Documentation
 * Feature implemented:
   - [Tag command](https://github.com/CS2103JAN2017-W13-B3/main/blob/master/docs/UserGuide.md#310-adding-a-tag-to-a-task-tag)
