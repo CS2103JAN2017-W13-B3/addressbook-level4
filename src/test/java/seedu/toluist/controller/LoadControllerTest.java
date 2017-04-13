@@ -1,7 +1,6 @@
 //@@author A0131125Y
 package seedu.toluist.controller;
 
-import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -37,7 +36,7 @@ public class LoadControllerTest extends ControllerTest {
         assertTrue(controller.matchesCommand("load sfas?////sffsf.json"));
 
         // with more than 1 parameters
-        assertFalse(controller.matchesCommand("load a b c"));
+        assertTrue(controller.matchesCommand("load a b c"));
     }
 
     @Test

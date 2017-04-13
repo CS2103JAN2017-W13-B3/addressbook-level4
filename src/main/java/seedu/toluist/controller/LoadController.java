@@ -22,7 +22,7 @@ import seedu.toluist.ui.commons.CommandResult;
  */
 public class LoadController extends Controller {
     private static final Logger logger = LogsCenter.getLogger(LoadController.class);
-    private static final String COMMAND_TEMPLATE = "(?iu)^\\s*load(\\s+(?<directory>\\S+))?\\s*";
+    private static final String COMMAND_TEMPLATE = "(?iu)^\\s*load(\\s+(?<directory>.+))?\\s*";
     public static final String COMMAND_WORD = "load";
     public static final String PARAMETER_STORE_DIRECTORY = "directory";
 
