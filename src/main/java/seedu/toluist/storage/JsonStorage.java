@@ -50,10 +50,7 @@ public class JsonStorage implements TodoListStorage {
     public TodoList load(String storagePath) throws DataStorageException {
         try {
             String jsonString = FileUtil.readFromFile(new File(storagePath));
-            // push todo list json string into undoHistoryStack if the stack is empty
-            if (undoHistoryStack.isEmpty()) {
-                addToHistory(jsonString);
-            }
+            addToHistory(jsonString);
             TodoList todoList = JsonUtil.fromJsonString(jsonString, TodoList.class);
 
             Config.getInstance().setTodoListFilePath(storagePath);
